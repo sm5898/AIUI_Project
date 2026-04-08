@@ -26,8 +26,8 @@ return(
 
 </div>
 
-<div className="avatar">
-AS
+<div className="avatar"> {/*Placeholder for user initials or avatar image*/}
+    AS 
 </div>
 
 </div>
