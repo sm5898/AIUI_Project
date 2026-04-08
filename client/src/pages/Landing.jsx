@@ -22,8 +22,10 @@ return (
 		<Navbar />
 		<div className="landing-hero">
 			<div className="landing-left">
-				<h3 className="landing-sub">Your neighborhood’s shared toolbox</h3>
-				<h1 className="landing-title">THE BLOCK</h1>
+				<div className="block-card">
+					<div className="landing-sub">Your neighborhood’s shared toolbox</div>
+					<div className="landing-title">THE BLOCK</div>
+				</div>
 			</div>
 			<div className="landing-login-card">
 				<div className="login-header-row">
