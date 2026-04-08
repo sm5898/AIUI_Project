@@ -1,0 +1,50 @@
+.messages{
+ display:grid;
+ grid-template-columns:320px 1fr;
+ height:80vh;
+ background:white;
+ margin:40px 100px;
+ border-radius:28px;
+ overflow:hidden;
+}
+
+/* LEFT SIDEBAR */
+
+.sidebar{
+ border-right:1px solid #eee;
+ padding:30px;
+ background:#fafafa;
+}
+
+.sidebar h2{
+ margin-bottom:20px;
+}
+
+/* CHAT WINDOW */
+
+.chat{
+ padding:40px;
+ display:flex;
+ flex-direction:column;
+}
+
+/* MESSAGE BUBBLES */
+
+.bubble{
+ padding:14px 20px;
+ border-radius:22px;
+ margin-bottom:12px;
+ max-width:60%;
+ font-size:14px;
+}
+
+.sent{
+ background:#9AA8C7;
+ color:white;
+ margin-left:auto;
+}
+
+.received{
+ background:#E5E7EB;
+ color:#111827;
+}
