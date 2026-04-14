@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { MapContainer, TileLayer, Marker, ZoomControl } from "react-leaflet"
+import { useNavigate } from "react-router-dom"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
 import Navbar from "../components/Navbar"
@@ -29,6 +30,7 @@ function createPinIcon(color, title) {
 export default function ExploreMap() {
  const { filtered, query, setQuery, filter, setFilter } = useSearch()
  const [searchOpen, setSearchOpen] = useState(false)
+ const navigate = useNavigate()
 
  const mapListings = filtered.filter(
   item => item.location?.lat && item.location?.lng
@@ -98,6 +100,31 @@ export default function ExploreMap() {
      >
       Service
      </button>
+
+     {/* View toggle */}
+     <div className="view-toggle">
+      <button className="view-toggle-btn" onClick={() => navigate("/list")} aria-label="List view">
+       <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="3" width="4" height="4" rx="0.5" fill="currentColor"/>
+        <rect x="9" y="3" width="4" height="4" rx="0.5" fill="currentColor"/>
+        <rect x="15" y="3" width="4" height="4" rx="0.5" fill="currentColor"/>
+        <rect x="3" y="9" width="4" height="4" rx="0.5" fill="currentColor"/>
+        <rect x="9" y="9" width="4" height="4" rx="0.5" fill="currentColor"/>
+        <rect x="15" y="9" width="4" height="4" rx="0.5" fill="currentColor"/>
+        <rect x="3" y="15" width="4" height="4" rx="0.5" fill="currentColor"/>
+        <rect x="9" y="15" width="4" height="4" rx="0.5" fill="currentColor"/>
+        <rect x="15" y="15" width="4" height="4" rx="0.5" fill="currentColor"/>
+       </svg>
+      </button>
+      <button className="view-toggle-btn view-toggle-active" aria-label="Map view">
+       <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="10" r="7" stroke="currentColor" strokeWidth="1.8"/>
+        <path d="M12 21 Q12 21 7 14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+        <path d="M12 21 Q12 21 17 14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+        <circle cx="12" cy="10" r="2.5" fill="currentColor"/>
+       </svg>
+      </button>
+     </div>
     </div>
    </div>
   </div>

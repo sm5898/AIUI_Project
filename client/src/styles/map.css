@@ -93,7 +93,6 @@
 
 .map-filter-btn {
  background: white;
- border: 1.5px solid #1f2937;
  border-radius: 999px;
  padding: 8px 22px;
  font-size: 14px;
@@ -102,6 +101,14 @@
  color: #1f2937;
  transition: all 0.15s;
  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+}
+
+.map-filter-btn:first-child {
+ border: 1.5px solid #D4703A;
+}
+
+.map-filter-btn:nth-child(2) {
+ border: 1.5px solid #4A1A0A;
 }
 
 .map-filter-btn:hover {
@@ -117,6 +124,42 @@
 .map-filter-btn.map-filter-service-active {
  background: #4A1A0A;
  border-color: #4A1A0A;
+ color: white;
+}
+
+/* ── View toggle ──────────────────────────────── */
+
+.view-toggle {
+ display: flex;
+ background: #e5e7eb;
+ border-radius: 999px;
+ padding: 3px;
+ gap: 2px;
+ margin-left: 8px;
+}
+
+.view-toggle-btn {
+ width: 38px;
+ height: 38px;
+ border-radius: 999px;
+ border: none;
+ padding: 0;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ background: transparent !important;
+ color: #4b5563;
+ transition: all 0.15s;
+}
+
+.view-toggle-btn:hover {
+ background: #d1d5db !important;
+ color: #111827;
+}
+
+.view-toggle-btn.view-toggle-active {
+ background: #0B1F44 !important;
  color: white;
 }
 
