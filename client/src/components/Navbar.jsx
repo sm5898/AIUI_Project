@@ -26,7 +26,7 @@ return(
 
 </div>
 
-<div className="avatar"> {/*Placeholder for user initials or avatar image*/}
+<div className="avatar"> {/*Placeholder for user initials or avatar image Test 1*/}
     AS 
 </div>
 
