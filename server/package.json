@@ -1,5 +1,6 @@
 {
  "name": "the-block-server",
+ "type": "module",
  "scripts": {
   "start": "node server.js"
  },

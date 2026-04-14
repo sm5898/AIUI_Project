@@ -1,0 +1,212 @@
+/* ── Explore Map page ─────────────────────────── */
+
+.map-page {
+ display: flex;
+ flex-direction: column;
+ height: 100vh;
+ overflow: hidden;
+}
+
+.map-wrapper {
+ position: relative;
+ flex: 1;
+}
+
+.map-container {
+ width: 100%;
+ height: 100%;
+}
+
+/* ── Custom pin ───────────────────────────────── */
+
+.map-pin {
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+}
+
+.map-pin svg {
+ display: block;
+}
+
+.map-pin-label {
+ color: white;
+ font-size: 12px;
+ font-weight: 600;
+ padding: 3px 10px;
+ border-radius: 999px;
+ white-space: nowrap;
+ margin-top: 3px;
+ font-family: Inter, Arial, sans-serif;
+ box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+}
+
+/* ── Search overlay (top-left) ────────────────── */
+
+.map-search-overlay {
+ position: absolute;
+ top: 20px;
+ left: 100px;
+ z-index: 1000;
+}
+
+
+.map-search-btn {
+ width: 48px;
+ height: 48px;
+ border-radius: 50%;
+ background: #0B1F44;
+ border: none;
+ padding: 0;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+ transition: background 0.15s;
+}
+
+.map-search-btn:hover {
+ background: #162f66;
+}
+
+.map-search-input {
+ width: 240px;
+ padding: 12px 18px;
+ border-radius: 999px;
+ border: none;
+ box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+ font-size: 14px;
+ outline: none;
+}
+
+/* ── Filter pills (top-right) ─────────────────── */
+
+.map-filters {
+ position: absolute;
+ top: 20px;
+ right: 100px;
+ z-index: 1000;
+ display: flex;
+ gap: 8px;
+}
+
+.map-filter-btn {
+ background: white;
+ border-radius: 999px;
+ padding: 8px 22px;
+ font-size: 14px;
+ font-weight: 600;
+ cursor: pointer;
+ color: #1f2937;
+ transition: all 0.15s;
+ box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+}
+
+.map-filter-btn:first-child {
+ border: 1.5px solid #D4703A;
+}
+
+.map-filter-btn:nth-child(2) {
+ border: 1.5px solid #4A1A0A;
+}
+
+.map-filter-btn:hover {
+ background: #f3f4f6;
+}
+
+.map-filter-btn.map-filter-borrow-active {
+ background: #D4703A;
+ border-color: #D4703A;
+ color: white;
+}
+
+.map-filter-btn.map-filter-service-active {
+ background: #4A1A0A;
+ border-color: #4A1A0A;
+ color: white;
+}
+
+/* ── View toggle ──────────────────────────────── */
+
+.view-toggle {
+ display: flex;
+ background: #e5e7eb;
+ border-radius: 999px;
+ padding: 3px;
+ gap: 2px;
+ margin-left: 8px;
+}
+
+.view-toggle-btn {
+ width: 38px;
+ height: 38px;
+ border-radius: 999px;
+ border: none;
+ padding: 0;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ background: transparent !important;
+ color: #4b5563;
+ transition: all 0.15s;
+}
+
+.view-toggle-btn:hover {
+ background: #d1d5db !important;
+ color: #111827;
+}
+
+.view-toggle-btn.view-toggle-active {
+ background: #0B1F44 !important;
+ color: white;
+}
+
+/* ── Map tile brand tint ──────────────────────── */
+/* Subtle warm-cool tone pulled from the navy/brown palette */
+
+.leaflet-tile-pane {
+ filter: sepia(0.12) saturate(0.85) brightness(1.02);
+}
+
+/* ── Zoom controls ────────────────────────────── */
+
+.leaflet-control-zoom {
+ border: none !important;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.18) !important;
+ border-radius: 8px !important;
+ overflow: hidden;
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+ background: #0B1F44 !important;
+ color: white !important;
+ border: none !important;
+ width: 36px !important;
+ height: 36px !important;
+ line-height: 36px !important;
+ font-size: 18px !important;
+ font-weight: 400 !important;
+ transition: background 0.15s !important;
+}
+
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
+ background: #162f66 !important;
+ color: white !important;
+}
+
+/* ── Attribution — minimal but legally present ── */
+
+.leaflet-control-attribution {
+ font-size: 9px !important;
+ opacity: 0.45 !important;
+ background: transparent !important;
+ padding: 0 4px !important;
+}
+
+.leaflet-control-attribution a {
+ color: inherit !important;
+}

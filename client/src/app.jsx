@@ -1,5 +1,6 @@
 import React from "react";
 import {BrowserRouter,Routes,Route} from "react-router-dom"
+import { SearchProvider } from "./context/SearchContext"
 
 import Landing from "./pages/Landing"
 import Signup from "./pages/Signup"
@@ -13,6 +14,7 @@ export default function App(){
 
 return(
 
+<SearchProvider>
 <BrowserRouter>
 
 <Routes>
@@ -28,6 +30,7 @@ return(
 </Routes>
 
 </BrowserRouter>
+</SearchProvider>
 
 )
 
