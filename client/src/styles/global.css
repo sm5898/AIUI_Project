@@ -38,11 +38,6 @@ button{
   outline: none;
 }
 
-html, body {
-  overflow: hidden;
-  height: 100%;
-}
-
 * {
   scroll-behavior: auto;
 }

@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/navbar.css";
 
-export default function Navbar({ active }) {
+export default function Navbar({ active, locked }) {
   const navigate = useNavigate();
+  const [toast, setToast] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const go = (path) => {
+    if (locked) {
+      setToast(true);
+      setTimeout(() => setToast(false), 3000);
+    } else {
+      navigate(path);
+    }
+  };
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -33,19 +43,19 @@ export default function Navbar({ active }) {
       <div className="nav-pill">
         <span
           className={active === "explore" ? "active" : ""}
-          onClick={() => navigate("/explore")}
+          onClick={() => go("/explore")}
         >
           Explore
         </span>
         <span
           className={active === "messages" ? "active" : ""}
-          onClick={() => navigate("/messages")}
+          onClick={() => go("/messages")}
         >
           Messages
         </span>
         <span
           className={active === "post" ? "active" : ""}
-          onClick={() => navigate("/create")}
+          onClick={() => go("/create")}
         >
           Post
         </span>
@@ -59,11 +69,11 @@ export default function Navbar({ active }) {
             </span>
             <div
               className="avatar"
-              onClick={() => navigate("/my-listings")}
+              onClick={() => go("/my-listings")}
               style={{ cursor: "pointer" }}
->
-  {getInitials()}
-</div>
+            >
+              {getInitials()}
+            </div>
             <button
               onClick={logout}
               style={{
@@ -81,7 +91,7 @@ export default function Navbar({ active }) {
           <>
             <span
               style={{ cursor: "pointer", fontSize: "14px" }}
-              onClick={() => navigate("/signup")}
+              onClick={() => go("/signup")}
             >
               Sign Up
             </span>
@@ -89,6 +99,10 @@ export default function Navbar({ active }) {
           </>
         )}
       </div>
+
+      {toast && (
+        <div className="nav-toast">Log in or create an account to explore</div>
+      )}
     </div>
   );
 }

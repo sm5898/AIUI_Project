@@ -1,180 +1,207 @@
-import React, { useState } from "react";
+
+import React, { useState, useRef } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import api from "../api/api";
 import Navbar from "../components/Navbar";
-import { useSearch } from "../context/SearchContext";
-import "../styles/forms.css";
+import "../styles/createpost.css";
+
+const BORROW_COLOR = "#D4703A";
+const SERVICE_COLOR = "#4A1A0A";
 
 export default function CreatePost() {
-  const { fetchListings } = useSearch();
+  const [postType, setPostType] = useState("lend");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [company, setCompany] = useState("");
+  const [images, setImages] = useState([]);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+  const [showCal, setShowCal] = useState(false);
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [startDate, endDate] = dateRange;
+  const fileInputRef = useRef();
 
-  const [form, setForm] = useState({
-    title: "",
-    description: "",
-    type: "service",
-    image: "",
-    availability: "",
-    lat: "40.7265",
-    lng: "-73.9815",
-    createdBy: "",
-  });
+  const handleFiles = (files) => {
+    const file = files[0];
+    if (!file) return;
+    setImages((prev) => [...prev, file]);
+    setImagePreviewUrl(URL.createObjectURL(file));
+  };
 
-  const [loading, setLoading] = useState(false);
+  const removeImage = (name) => {
+    const remaining = images.filter((f) => f.name !== name);
+    setImages(remaining);
+    if (remaining.length === 0) setImagePreviewUrl(null);
+  };
+
+  const availabilityText = startDate
+    ? endDate
+      ? `${startDate.toLocaleDateString()} – ${endDate.toLocaleDateString()}`
+      : startDate.toLocaleDateString()
+    : "Available Anytime";
+
+  const borderColor = postType === "lend" ? BORROW_COLOR : SERVICE_COLOR;
 
   const submit = async () => {
-    try {
-      setLoading(true);
-
-      const savedUser = JSON.parse(localStorage.getItem("user"));
-
-      const payload = {
-        title: form.title,
-        description: form.description,
-        type: form.type,
-        image: form.image,
-        availability: form.availability,
-        location: {
-          lat: Number(form.lat),
-          lng: Number(form.lng),
-        },
-        createdBy: savedUser?.firstName || form.createdBy || "Anonymous",
-      };
-
-      const response = await api.post("/listings", payload);
-      console.log("Listing created:", response.data);
-
-      await fetchListings();
-
-      alert("Listing created successfully!");
-
-      setForm({
-        title: "",
-        description: "",
-        type: "service",
-        image: "",
-        availability: "",
-        lat: "40.7265",
-        lng: "-73.9815",
-        createdBy: "",
-      });
-    } catch (error) {
-      console.error("Error creating listing:", error.response?.data || error.message);
-      alert("Failed to create listing.");
-    } finally {
-      setLoading(false);
-    }
+    const data = new FormData();
+    data.append("title", title);
+    data.append("description", description);
+    data.append("type", postType);
+    data.append("company", company);
+    data.append("availability", availabilityText);
+    if (images[0]) data.append("image", images[0]);
+    await api.post("/listings", data);
   };
 
   return (
-    <div>
+    <div className="cp-page">
       <Navbar active="post" />
 
-      <div className="form-grid">
-        <div className="form-section">
-          <h2>Create a Listing</h2>
+      <div className="cp-body">
+        <h1 className="cp-heading">Create Post</h1>
 
-          <label>Title</label>
-          <input
-            className="input"
-            placeholder="e.g. Dog Walking"
-            value={form.title}
-            onChange={(e) => setForm({ ...form, title: e.target.value })}
-          />
+        <div className="cp-layout">
+          {/* ── FORM ── */}
+          <div className="cp-form">
 
-          <label>Description</label>
-          <textarea
-            className="input"
-            placeholder="Describe the service or item"
-            rows="4"
-            value={form.description}
-            onChange={(e) => setForm({ ...form, description: e.target.value })}
-          />
-
-          <label>Type</label>
-          <select
-            className="input"
-            value={form.type}
-            onChange={(e) => setForm({ ...form, type: e.target.value })}
-          >
-            <option value="service">Service</option>
-            <option value="borrow">Borrow</option>
-          </select>
-
-          <label>Image URL</label>
-          <input
-            className="input"
-            placeholder="Paste an image link"
-            value={form.image}
-            onChange={(e) => setForm({ ...form, image: e.target.value })}
-          />
-
-          <label>Availability</label>
-          <input
-            className="input"
-            placeholder="e.g. Weekdays 5–7pm"
-            value={form.availability}
-            onChange={(e) => setForm({ ...form, availability: e.target.value })}
-          />
-
-          <label>Latitude</label>
-          <input
-            className="input"
-            placeholder="40.7265"
-            value={form.lat}
-            onChange={(e) => setForm({ ...form, lat: e.target.value })}
-          />
-
-          <label>Longitude</label>
-          <input
-            className="input"
-            placeholder="-73.9815"
-            value={form.lng}
-            onChange={(e) => setForm({ ...form, lng: e.target.value })}
-          />
-
-          <label>Created By</label>
-          <input
-            className="input"
-            placeholder="Your name"
-            value={form.createdBy}
-            onChange={(e) => setForm({ ...form, createdBy: e.target.value })}
-          />
-
-          <button className="signup-btn" onClick={submit} disabled={loading}>
-            {loading ? "Creating..." : "Create Listing"}
-          </button>
-        </div>
-
-        <div className="preview">
-          <h2>Preview</h2>
-
-          {form.image ? (
-            <img
-              src={form.image}
-              alt={form.title || "Preview"}
-              style={{
-                width: "100%",
-                maxHeight: "240px",
-                objectFit: "cover",
-                borderRadius: "20px",
-                marginBottom: "16px",
-              }}
-            />
-          ) : (
-            <div className="upload-box" style={{ marginBottom: "16px" }}>
-              No image yet
+            {/* Post Type toggle */}
+            <div className="cp-type-row">
+              <span className="cp-type-label">Post Type:</span>
+              <div className="cp-type-toggle">
+                <button
+                  className={`cp-type-btn${postType === "lend" ? " cp-type-active" : ""}`}
+                  onClick={() => setPostType("lend")}
+                >Lend</button>
+                <button
+                  className={`cp-type-btn${postType === "service" ? " cp-type-active" : ""}`}
+                  onClick={() => setPostType("service")}
+                >Service</button>
+              </div>
             </div>
-          )}
 
-          <p style={{ textTransform: "capitalize", color: "#6B7280" }}>{form.type}</p>
-          <h3>{form.title || "Listing title"}</h3>
-          <p>{form.description || "Your description will appear here."}</p>
-          <p>
-            <strong>Availability:</strong> {form.availability || "Not added yet"}
-          </p>
-          <p>
-            <strong>Posted by:</strong>{" "}
-            {JSON.parse(localStorage.getItem("user"))?.firstName || form.createdBy || "Unknown"}
-          </p>
+            {/* Title */}
+            <label className="cp-label">Title:</label>
+            <input
+              className="cp-input"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+
+            {/* Description | Availability */}
+            <label className="cp-label">Description | Availability</label>
+            <div className="cp-desc-wrap">
+              <textarea
+                className="cp-textarea"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+              <div className="cp-desc-divider" />
+              <div className="cp-cal-wrap">
+                <button
+                  className="cp-cal-btn"
+                  onClick={() => setShowCal((v) => !v)}
+                  title="Pick availability dates"
+                >
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0B1F44" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                </button>
+                {showCal && (
+                  <div className="cp-cal-popup">
+                    <DatePicker
+                      selected={startDate}
+                      onChange={(dates) => {
+                        setDateRange(dates);
+                        if (dates[0] && dates[1]) setShowCal(false);
+                      }}
+                      startDate={startDate}
+                      endDate={endDate}
+                      selectsRange
+                      inline
+                    />
+                    {(startDate || endDate) && (
+                      <button
+                        className="cp-cal-clear"
+                        onClick={() => { setDateRange([null, null]); setShowCal(false); }}
+                      >Clear</button>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Product Company */}
+            <label className="cp-label">
+              Product Company:
+              <span className="cp-optional"> Optional</span>
+            </label>
+            <input
+              className="cp-input"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+            />
+
+            {/* Upload Pictures */}
+            <label className="cp-label">Upload Pictures:</label>
+            <div className="cp-chips">
+              {images.map((f) => (
+                <div key={f.name} className="cp-chip">
+                  <button className="cp-chip-remove" onClick={() => removeImage(f.name)}>✕</button>
+                  <span>{f.name}</span>
+                </div>
+              ))}
+            </div>
+            <div
+              className="cp-upload-box"
+              onClick={() => fileInputRef.current.click()}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => { e.preventDefault(); handleFiles(e.dataTransfer.files); }}
+            >
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="16 16 12 12 8 16" />
+                <line x1="12" y1="12" x2="12" y2="21" />
+                <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3" />
+              </svg>
+              <p className="cp-upload-text">Click or drag file to this area to upload</p>
+              <p className="cp-upload-hint">Formats accepted are .png, .jpeg, .mp4 and .mov</p>
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                accept=".png,.jpeg,.jpg,.mp4,.mov"
+                onChange={(e) => handleFiles(e.target.files)}
+              />
+            </div>
+
+            <button className="cp-submit" onClick={submit}>Create Listing</button>
+          </div>
+
+          {/* ── LIVE PREVIEW ── */}
+          <div className="cp-preview-section">
+            <h2 className="cp-preview-heading">Preview of Listing</h2>
+            <div className="cp-card" style={{ borderColor }}>
+              <div className="cp-card-type">{postType === "lend" ? "Borrow" : "Service"}</div>
+              <div className="cp-card-top">
+                <h2 className="cp-card-title">{title || <span className="cp-card-empty">—</span>}</h2>
+                <span className="cp-card-dist">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  (Distance will show here)
+                </span>
+              </div>
+              {imagePreviewUrl && (
+                <img className="cp-card-img" src={imagePreviewUrl} alt="preview" />
+              )}
+              {description && <p className="cp-card-desc">{description}</p>}
+              {company && <p className="cp-card-meta"><strong>Company:</strong> {company}</p>}
+              <p className="cp-card-meta"><strong>Availability:</strong> {availabilityText}</p>
+              <hr className="cp-card-divider" />
+              <p className="cp-card-posted">Posted by [You]</p>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
