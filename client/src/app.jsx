@@ -10,6 +10,7 @@ import ListView from "./pages/Listview"
 import Messages from "./pages/Messages"
 import CreatePost from "./pages/Createpost"
 import MyListings from "./pages/MyListings";
+import ListingDetail from "./pages/ListingDetail"
 
 export default function App(){
 
@@ -28,6 +29,7 @@ return(
 <Route path="/messages" element={<Messages/>}/>
 <Route path="/create" element={<CreatePost/>}/>
 <Route path="/my-listings" element={<MyListings />} />
+<Route path="/listing/:id" element={<ListingDetail/>}/>
 
 </Routes>
 
