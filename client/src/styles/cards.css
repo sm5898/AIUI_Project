@@ -1,0 +1,65 @@
+.navbar{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:24px 100px;
+ background:white;
+ border-bottom:1px solid #eee;
+}
+
+/* LOGO DOT GRID */
+
+.logo{
+ display:grid;
+ grid-template-columns:repeat(2,10px);
+ gap:6px;
+}
+
+.logo div{
+ width:10px;
+ height:10px;
+ background:#0B1F44;
+ border-radius:50%;
+}
+
+/* CENTER NAV PILL */
+
+.nav-pill{
+ display:flex;
+ gap:40px;
+ background:#0B1F44;
+ padding:12px 40px;
+ border-radius:999px;
+ color:white;
+ font-size:14px;
+}
+
+.nav-pill span{
+ opacity:.6;
+ cursor:pointer;
+ transition:.2s;
+}
+
+.nav-pill span:hover{
+ opacity:1;
+}
+
+.nav-pill .active{
+ opacity:1;
+ font-weight:600;
+}
+
+/* PROFILE */
+
+.avatar{
+ width:44px;
+ height:44px;
+ background:#0B1F44;
+ border-radius:50%;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ color:white;
+ font-weight:600;
+ font-size:14px;
+}

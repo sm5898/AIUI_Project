@@ -1,0 +1,140 @@
+.form-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:60px;
+ padding:60px 100px;
+}
+
+/* INPUT AREA */
+
+.form-section{
+ background:white;
+ padding:40px;
+ border-radius:28px;
+ box-shadow:0 10px 30px rgba(0,0,0,.06);
+}
+
+.form-section label{
+  display:block;
+  margin-bottom:8px;
+  font-weight:600;
+  color:#1f2937;
+}
+
+.form-section textarea,
+.form-section select{
+  width:100%;
+  padding:14px;
+  border-radius:20px;
+  border:1px solid #E5E7EB;
+  margin-bottom:20px;
+  box-sizing:border-box;
+  font:inherit;
+  background:white;
+}
+
+.input{
+ width:100%;
+ padding:14px;
+ border-radius:20px;
+ border:1px solid #E5E7EB;
+ margin-bottom:20px;
+}
+
+/* PREVIEW CARD */
+
+.preview{
+ border:2px solid #7A3E2E;
+ border-radius:28px;
+ padding:30px;
+ background:white;
+ min-height:420px;
+}
+
+.preview h2{
+ margin-bottom:10px;
+}
+
+.upload-box{
+ border:1px dashed #ccc;
+ border-radius:20px;
+ padding:40px;
+ text-align:center;
+ color:#6B7280;
+ cursor:pointer;
+}
+
+.signup-page{
+ min-height:100vh;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:24px;
+ background:linear-gradient(180deg, #f6f8ff 0%, #eef2ff 100%);
+}
+
+.signup-card{
+ width:100%;
+ max-width:460px;
+ background:#ffffff;
+ padding:32px;
+ border-radius:20px;
+ box-shadow:0 12px 30px rgba(26, 35, 69, .12);
+ display:flex;
+ flex-direction:column;
+ gap:10px;
+}
+
+.signup-card h1{
+ margin:0 0 8px 0;
+ color:#0b1f44;
+}
+
+.signup-card label{
+ font-weight:600;
+ color:#1f2937;
+ font-size:14px;
+}
+
+.signup-input{
+ width:100%;
+ padding:12px 14px;
+ border-radius:12px;
+ border:1px solid #d1d5db;
+ outline:none;
+ font-size:14px;
+ box-sizing:border-box;
+}
+
+.signup-input:focus{
+ border-color:#0b1f44;
+ box-shadow:0 0 0 3px rgba(11, 31, 68, .12);
+}
+
+.signup-error{
+ margin:4px 0;
+ color:#b91c1c;
+ font-size:14px;
+}
+
+.signup-btn{
+ margin-top:8px;
+ background:#0b1f44;
+ color:#ffffff;
+ border:none;
+ border-radius:999px;
+ padding:12px 16px;
+ font-weight:600;
+ cursor:pointer;
+}
+
+.signup-btn:disabled{
+ opacity:.7;
+ cursor:not-allowed;
+}
+
+.signup-footer{
+ margin:8px 0 0;
+ font-size:14px;
+ color:#4b5563;
+}
