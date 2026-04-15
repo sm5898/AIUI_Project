@@ -1,0 +1,374 @@
+/* ── PAGE SHELL ── */
+.cp-page {
+  min-height: 100vh;
+  background: #fff;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.cp-body {
+  padding: 16px 100px 60px;
+}
+
+.cp-heading {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0B1F44;
+  margin-bottom: 28px;
+}
+
+/* ── TWO-COLUMN LAYOUT ── */
+.cp-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  background: #f0f0f0;
+  border-radius: 24px;
+  padding: 40px 48px;
+  align-items: start;
+}
+
+/* ── FORM COLUMN ── */
+.cp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Post Type */
+.cp-type-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.cp-type-label {
+  font-weight: 700;
+  font-size: 15px;
+  color: #0B1F44;
+  white-space: nowrap;
+}
+
+.cp-type-toggle {
+  display: flex;
+  background: #fff;
+  border-radius: 999px;
+  padding: 4px;
+  gap: 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.cp-type-btn {
+  padding: 8px 28px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.cp-type-btn.cp-type-active {
+  background: #0B1F44 !important;
+  color: #fff !important;
+}
+
+/* Labels */
+.cp-label {
+  font-weight: 700;
+  font-size: 14px;
+  color: #0B1F44;
+  margin-top: 14px;
+  margin-bottom: 4px;
+}
+
+.cp-optional {
+  font-weight: 400;
+  color: #9CA3AF;
+  font-size: 13px;
+}
+
+/* Inputs */
+.cp-input {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: none;
+  background: #fff;
+  font-size: 14px;
+  color: #111;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* Description + calendar row */
+.cp-desc-wrap {
+  display: flex;
+  align-items: stretch;
+  background: #fff;
+  border-radius: 16px;
+  overflow: visible;
+  position: relative;
+}
+
+.cp-textarea {
+  flex: 1;
+  padding: 14px 18px;
+  border: none;
+  background: transparent;
+  resize: none;
+  font-size: 14px;
+  color: #111;
+  outline: none;
+  min-height: 90px;
+  font-family: inherit;
+}
+
+.cp-desc-divider {
+  width: 1px;
+  background: #E5E7EB;
+  margin: 12px 0;
+}
+
+.cp-cal-wrap {
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  position: relative;
+}
+
+.cp-cal-btn {
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cp-cal-popup {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 100;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cp-cal-clear {
+  margin-top: 8px;
+  background: transparent !important;
+  border: 1px solid #0B1F44 !important;
+  color: #0B1F44 !important;
+  border-radius: 999px;
+  padding: 6px 20px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* Tweak react-datepicker to use navy accent */
+.cp-cal-popup .react-datepicker__day--selected,
+.cp-cal-popup .react-datepicker__day--in-range,
+.cp-cal-popup .react-datepicker__day--range-start,
+.cp-cal-popup .react-datepicker__day--range-end,
+.cp-cal-popup .react-datepicker__day--in-selecting-range {
+  background-color: #0B1F44 !important;
+  color: #fff !important;
+  border-radius: 50% !important;
+}
+
+.cp-cal-popup .react-datepicker__day:hover {
+  background-color: #e8ecf4 !important;
+  border-radius: 50% !important;
+}
+
+.cp-cal-popup .react-datepicker__header {
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.cp-cal-popup .react-datepicker__current-month,
+.cp-cal-popup .react-datepicker__day-name {
+  color: #0B1F44;
+}
+
+.cp-cal-popup .react-datepicker__navigation-icon::before {
+  border-color: #0B1F44;
+}
+
+/* File chips */
+.cp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.cp-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #0B1F44;
+  color: #fff;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+}
+
+.cp-chip-remove {
+  background: transparent !important;
+  border: none !important;
+  color: #fff !important;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 0;
+  line-height: 1;
+}
+
+/* Upload box */
+.cp-upload-box {
+  border: 1.5px dashed #C0C0C0;
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
+  cursor: pointer;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: border-color 0.2s;
+}
+
+.cp-upload-box:hover {
+  border-color: #0B1F44;
+}
+
+.cp-upload-text {
+  margin: 0;
+  font-size: 14px;
+  color: #374151;
+}
+
+.cp-upload-hint {
+  margin: 0;
+  font-size: 12px;
+  color: #9CA3AF;
+}
+
+/* Submit */
+.cp-submit {
+  margin-top: 20px;
+  width: 100%;
+  padding: 16px;
+  background: #0B1F44 !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.cp-submit:hover {
+  opacity: 0.88;
+}
+
+/* ── PREVIEW COLUMN ── */
+.cp-preview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cp-preview-heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0B1F44;
+  margin: 0;
+}
+
+/* Preview card */
+.cp-card {
+  background: #fff;
+  border: 2.5px solid #4A1A0A;
+  border-radius: 20px;
+  padding: 22px 24px;
+  min-height: 380px;
+}
+
+.cp-card-type {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.cp-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.cp-card-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0B1F44;
+  margin: 0;
+}
+
+.cp-card-empty {
+  color: #ccc;
+}
+
+.cp-card-dist {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+  padding-top: 6px;
+}
+
+.cp-card-img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  max-height: 200px;
+  margin-bottom: 12px;
+}
+
+.cp-card-desc {
+  font-size: 14px;
+  color: #333;
+  margin: 0 0 10px;
+}
+
+.cp-card-meta {
+  font-size: 14px;
+  color: #333;
+  margin: 4px 0;
+}
+
+.cp-card-divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 16px 0 10px;
+}
+
+.cp-card-posted {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+}

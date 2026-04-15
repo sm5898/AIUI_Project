@@ -19,7 +19,7 @@ const login = async () => {
 
 return (
 	<div className="landing-bg">
-		<Navbar />
+		<Navbar locked />
 		<div className="landing-hero">
 			<div className="landing-left">
 				<div className="block-card">
