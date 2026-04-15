@@ -1,25 +1,54 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
-export default mongoose.model("Listing",{
+const listingSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    description: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    type: {
+      type: String,
+      required: true,
+      enum: ["borrow", "service", "lend"],
+    },
+    company: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+    image: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+    availability: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    location: {
+      lat: {
+        type: Number,
+        required: true,
+      },
+      lng: {
+        type: Number,
+        required: true,
+      },
+    },
+    createdBy: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+  },
+  { timestamps: true }
+);
 
- title:String,
-
- description:String,
-
- type:String,
-
- image:String,
-
- location:{
-  lat:Number,
-  lng:Number
- },
-
- availability:String,
-
- createdBy:{
-  type:mongoose.Schema.Types.ObjectId,
-  ref:"User"
- }
-
-})
+export default mongoose.model("Listing", listingSchema);

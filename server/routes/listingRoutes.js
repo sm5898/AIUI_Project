@@ -1,14 +1,18 @@
-import express from "express"
-
+import express from "express";
 import {
- getListings,
- createListing
-} from "../controllers/listingController.js"
+  getListings,
+  getListingById,
+  createListing,
+  updateListing,
+  deleteListing,
+} from "../controllers/listingController.js";
 
-const router=express.Router()
+const router = express.Router();
 
-router.get("/",getListings)
+router.get("/", getListings);
+router.get("/:id", getListingById);
+router.post("/", createListing);
+router.put("/:id", updateListing);
+router.delete("/:id", deleteListing);
 
-router.post("/",createListing)
-
-export default router
+export default router;
