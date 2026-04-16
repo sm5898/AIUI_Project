@@ -23,6 +23,22 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    bio: {
+      type: String,
+      default: "",
+      trim: true,
+      maxlength: 300,
+    },
+    location: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+    photo: {
+      type: String,
+      default: "",
+      trim: true,
+    },
   },
   { timestamps: true }
 );

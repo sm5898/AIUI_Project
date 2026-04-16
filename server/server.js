@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import listingRoutes from "./routes/listingRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import profileRoutes from "./routes/profileRoutes.js";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use("/api/listings", listingRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/profile", profileRoutes);
 
 app.get("/", (req, res) => {
   res.send("The Block backend is running");

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import "../styles/welcome.css"
 
 const BG_PINS = [
@@ -77,8 +77,17 @@ function useInView(threshold = 0.25) {
 
 export default function Welcome() {
   const navigate = useNavigate()
+  const location = useLocation()
   const panelRef = useRef()
   const [leaving, setLeaving] = useState(false)
+  const [loggedOutToast, setLoggedOutToast] = useState(false)
+
+  useEffect(() => {
+    if (location.state?.loggedOut) {
+      setLoggedOutToast(true)
+      setTimeout(() => setLoggedOutToast(false), 3000)
+    }
+  }, [])
 
   const [stepsRef, stepsVisible] = useInView(0.15)
   const [ctaRef, cta] = useInView(0.4)
@@ -102,6 +111,9 @@ export default function Welcome() {
 
   return (
     <div className="wl-root">
+      {loggedOutToast && (
+        <div className="wl-logout-toast">You've been logged out</div>
+      )}
       <div ref={panelRef} className={`wl-panel${leaving ? " wl-panel--leaving" : ""}`}>
 
         {/* Background constellation lines */}

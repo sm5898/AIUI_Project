@@ -11,6 +11,7 @@ import Messages from "./pages/Messages"
 import CreatePost from "./pages/Createpost"
 import MyListings from "./pages/MyListings";
 import Welcome from "./pages/Welcome";
+import Profile from "./pages/Profile";
 
 export default function App(){
 
@@ -30,6 +31,7 @@ return(
 <Route path="/messages" element={<Messages/>}/>
 <Route path="/create" element={<CreatePost/>}/>
 <Route path="/my-listings" element={<MyListings />} />
+<Route path="/profile" element={<Profile />} />
 
 </Routes>
 

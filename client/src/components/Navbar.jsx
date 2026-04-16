@@ -1,12 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/navbar.css";
 
 export default function Navbar({ active, locked }) {
   const navigate = useNavigate();
   const [toast, setToast] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef();
 
   const user = JSON.parse(localStorage.getItem("user"));
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   const go = (path) => {
     if (locked) {
@@ -20,7 +32,8 @@ export default function Navbar({ active, locked }) {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    navigate("/");
+    setDropdownOpen(false);
+    navigate("/", { state: { loggedOut: true } });
   };
 
   const getInitials = () => {
@@ -63,30 +76,26 @@ export default function Navbar({ active, locked }) {
 
       <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
         {user ? (
-          <>
-            <span style={{ fontSize: "14px" }}>
-              Hi, {user.firstName}
-            </span>
+          <div className="nb-avatar-wrap" ref={dropdownRef}>
             <div
               className="avatar"
-              onClick={() => go("/my-listings")}
+              onClick={() => setDropdownOpen(o => !o)}
               style={{ cursor: "pointer" }}
             >
               {getInitials()}
             </div>
-            <button
-              onClick={logout}
-              style={{
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                fontSize: "12px",
-                color: "#555"
-              }}
-            >
-              Logout
-            </button>
-          </>
+            {dropdownOpen && (
+              <div className="nb-dropdown">
+                <button className="nb-dropdown-item" onClick={() => { setDropdownOpen(false); navigate("/profile"); }}>
+                  View Profile
+                </button>
+                <div className="nb-dropdown-divider" />
+                <button className="nb-dropdown-item nb-dropdown-item--danger" onClick={logout}>
+                  Log Out
+                </button>
+              </div>
+            )}
+          </div>
         ) : (
           <>
             <span
