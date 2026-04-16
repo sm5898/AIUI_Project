@@ -84,12 +84,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 48px 72px;
+  padding: 48px 56px;
 }
 
 .ln-form {
   width: 100%;
-  max-width: 360px;
+  max-width: 460px;
   display: flex;
   flex-direction: column;
 }
