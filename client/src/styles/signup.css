@@ -1,145 +1,247 @@
-/* ── Sign Up page ─────────────────────────────── */
+/* ── Sign Up page — cream/navy split ────────────── */
 
-/* Full-viewport two-column split */
-.su-layout {
- display: flex;
- height: 100vh;
- width: 100vw;
- overflow: hidden;
- background: white;
+.su-root {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
 }
 
-/* LEFT — photo panel */
-.su-photo-panel {
- flex: 0 0 58%;
- overflow: hidden;
+/* ── Left — warm cream form panel ───────────────── */
+
+.su-left {
+  background: #F5F0EB;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 52px 64px 44px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.su-left::-webkit-scrollbar { display: none; }
+
+.su-form-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.su-photo {
- width: 100%;
- height: 100%;
- object-fit: cover;
- display: block;
- filter: grayscale(100%);
+.su-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
 }
 
-/* RIGHT — form panel */
-.su-form-panel {
- flex: 1;
- background: white;
- display: flex;
- align-items: flex-start;
- justify-content: center;
- padding: 56px 52px 40px 52px;
- overflow-y: auto;
+.su-form-title {
+  font-family: 'Libre Franklin', Arial, sans-serif;
+  font-size: 34px;
+  font-weight: 800;
+  color: #0B1F44;
+  margin: 0 0 4px;
+  letter-spacing: -0.5px;
 }
 
-.su-form {
- width: 100%;
- max-width: 400px;
- display: flex;
- flex-direction: column;
+.su-form-sub {
+  font-size: 14px;
+  color: rgba(0,0,0,0.4);
+  margin: 0;
 }
 
-/* Heading */
-.su-title {
- font-size: 48px;
- font-weight: 800;
- color: #0B1F44;
- margin: 0 0 12px 0;
- line-height: 1;
- font-family: 'Libre Franklin', Arial, sans-serif;
+.su-login-link {
+  font-size: 13px;
+  color: #D4703A;
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.5;
+  flex-shrink: 0;
+  margin-left: 16px;
+  transition: opacity 0.2s;
+}
+.su-login-link:hover { opacity: 0.75; }
+.su-login-arrow { font-size: 16px; }
+
+/* ── Name row ───────────────────────────────────── */
+
+.su-name-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
-/* Thick navy underline beneath heading */
-.su-divider {
- width: 100%;
- height: 4px;
- background: #0B1F44;
- border-radius: 2px;
- margin-bottom: 16px;
+.su-field {
+  display: flex;
+  flex-direction: column;
 }
 
-.su-subtitle {
- font-size: 15px;
- color: #666;
- margin: 0 0 28px 0;
-}
+/* ── Labels & inputs ────────────────────────────── */
 
-/* Field labels */
 .su-label {
- font-size: 16px;
- font-weight: 700;
- color: #0B1F44;
- display: flex;
- align-items: center;
- gap: 6px;
- margin-top: 20px;
- margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0B1F44;
+  margin: 16px 0 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.su-form .su-label:first-of-type {
- margin-top: 0;
-}
+.su-field .su-label { margin-top: 0; }
 
-.su-arrow {
- color: #0B1F44;
- font-size: 16px;
-}
+.su-arrow { color: #D4703A; }
 
-/* Inputs — beige bg, left+bottom accent in brownish-red */
 .su-input {
- width: 100%;
- box-sizing: border-box;
- background: #f0ebe5;
- border: none;
- border-left: 3px solid #111111;
- border-bottom: 1.5px solid #3d2b1f;
- padding: 10px 12px;
- font-size: 15px;
- outline: none;
- color: #111;
- border-radius: 0;
+  border: none;
+  border-bottom: 2px solid rgba(0,0,0,0.15);
+  padding: 9px 0 7px;
+  font-size: 15px;
+  font-weight: 600;
+  background: transparent;
+  outline: none;
+  color: #111827;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+.su-input:focus { border-bottom-color: #D4703A; }
+.su-input--full { width: 100%; }
+
+.su-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.su-input:focus {
- background: #e8e0d8;
- border-left-color: #111111;
- border-bottom-color: #3d2b1f;
+.su-input-wrap .su-input {
+  flex: 1;
+  padding-right: 32px;
 }
 
-/* Error message */
+.su-eye-btn {
+  position: absolute;
+  right: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+.su-eye-btn:hover { color: #D4703A; }
+
+/* ── Error & button ─────────────────────────────── */
+
 .su-error {
- color: #b91c1c;
- font-size: 13px;
- margin: 10px 0 0 0;
-}
-
-/* Submit button row — navy circle, bottom-right */
-.su-btn-row {
- display: flex;
- justify-content: flex-end;
- margin-top: 36px;
+  font-size: 13px;
+  color: #dc2626;
+  margin: 10px 0 0;
 }
 
 .su-btn {
- background: #0B1F44;
- color: white;
- border: none;
- border-radius: 50%;
- width: 80px;
- height: 80px;
- font-size: 13px;
- font-weight: 600;
- cursor: pointer;
- display: flex;
- align-items: center;
- justify-content: center;
- white-space: nowrap;
- flex-shrink: 0;
+  background: #0B1F44;
+  color: white;
+  border: none;
+  padding: 14px 36px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: 28px;
+  float: right;
+  transition: background 0.2s, transform 0.1s;
+  box-shadow: 0 4px 20px rgba(11,31,68,0.18);
+}
+.su-btn:hover { background: #1a3460; transform: translateY(-1px); }
+.su-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.su-back-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: rgba(0,0,0,0.3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0;
+  margin-top: 36px;
+  text-align: left;
+  transition: color 0.2s;
+  clear: both;
+}
+.su-back-link:hover { color: rgba(0,0,0,0.6); }
+
+/* ── Right — navy brand panel ───────────────────── */
+
+.su-right {
+  background: #0B1F44;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 64px;
+  position: relative;
+  overflow: hidden;
 }
 
-.su-btn:disabled {
- opacity: 0.65;
- cursor: not-allowed;
+/* subtle warm glow */
+.su-right::after {
+  content: '';
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(212,112,58,0.1) 0%, transparent 70%);
+  pointer-events: none;
 }
+
+.su-right-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.su-eyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #D4703A;
+  margin: 0 0 20px;
+}
+
+.su-title {
+  font-family: 'Libre Franklin', Arial, sans-serif;
+  font-size: clamp(72px, 9vw, 130px);
+  font-weight: 800;
+  color: white;
+  margin: 0 0 40px;
+  line-height: 0.88;
+  letter-spacing: -3px;
+}
+
+.su-pin-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 28px;
+  opacity: 0.9;
+}
+
+.su-right-tagline {
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.7;
+  margin: 0;
+}
+
+

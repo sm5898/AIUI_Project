@@ -21,10 +21,10 @@ return(
 
 <Routes>
 
-<Route path="/" element={<Landing/>}/>
+<Route path="/" element={<Welcome/>}/>
+<Route path="/login" element={<Landing/>}/>
 <Route path="/signup" element={<Signup/>}/>
 <Route path="/success" element={<Success/>}/>
-<Route path="/welcome" element={<Welcome/>}/>
 <Route path="/explore" element={<ExploreMap/>}/>
 <Route path="/list" element={<ListView/>}/>
 <Route path="/messages" element={<Messages/>}/>
