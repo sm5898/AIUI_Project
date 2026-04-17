@@ -4,13 +4,13 @@ import "../styles/cards.css";
 const BORROW_COLOR = "#D4703A";
 const SERVICE_COLOR = "#4A1A0A";
 
-export default function ListingCard({ listing }) {
+export default function ListingCard({ listing, onClick }) {
   const isBorrow = listing.type === "lend" || listing.type === "borrow";
   const borderColor = isBorrow ? BORROW_COLOR : SERVICE_COLOR;
   const typeLabel = isBorrow ? "Borrow" : "Service";
 
   return (
-    <div className="card" style={{ borderColor }}>
+    <div className="card" style={{ borderColor, cursor: onClick ? "pointer" : "default" }} onClick={onClick}>
       <div className="card-type">{typeLabel}</div>
       <div className="card-top">
         <h2 className="card-title">{listing.title}</h2>

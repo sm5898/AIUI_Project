@@ -20,6 +20,7 @@
  overflow: hidden;
  pointer-events: auto;
  animation: hover-pop 0.15s ease;
+ cursor: pointer;
 }
 
 @keyframes hover-pop {
@@ -98,6 +99,11 @@
  color: #888;
  margin: 0;
  text-align: center;
+ transition: color 0.15s;
+}
+
+.map-hover-card:hover .map-hover-cta {
+ color: #0B1F44;
 }
 
 .map-wrapper {
