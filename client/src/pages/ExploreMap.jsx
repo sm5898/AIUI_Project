@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
 import Navbar from "../components/Navbar"
+import ListingModal from "../components/ListingModal"
 import { useSearch } from "../context/SearchContext"
 import "../styles/map.css"
 
@@ -31,6 +32,7 @@ export default function ExploreMap() {
  const { filtered, query, setQuery, filter, setFilter } = useSearch()
  const [searchOpen, setSearchOpen] = useState(false)
  const [hovered, setHovered] = useState(null)
+ const [selectedListing, setSelectedListing] = useState(null)
  const hoverTimeout = useRef(null)
  const navigate = useNavigate()
 
@@ -85,6 +87,7 @@ export default function ExploreMap() {
          }
         },
         mouseout: () => clearHover(),
+        click: () => { setHovered(null); setSelectedListing(item) },
        }}
       />
      ))}
@@ -96,6 +99,7 @@ export default function ExploreMap() {
       style={{ left: hovered.x, top: hovered.y }}
       onMouseEnter={cancelClearHover}
       onMouseLeave={() => setHovered(null)}
+      onClick={() => { setHovered(null); setSelectedListing(hovered.item) }}
      >
       <div
        className="map-hover-header"
@@ -193,6 +197,10 @@ export default function ExploreMap() {
      </div>
     </div>
    </div>
+
+   {selectedListing && (
+    <ListingModal listing={selectedListing} onClose={() => setSelectedListing(null)} />
+   )}
   </div>
  )
 }
