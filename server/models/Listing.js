@@ -47,6 +47,11 @@ const listingSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    createdById: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: false,
+    },
   },
   { timestamps: true }
 );

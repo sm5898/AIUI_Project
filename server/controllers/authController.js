@@ -42,6 +42,7 @@ export const signup = async (req, res) => {
       },
     });
   } catch (error) {
+    console.error("SIGNUP ERROR:", error);
     res.status(500).json({
       message: "Signup failed",
       error: error.message,
@@ -87,6 +88,9 @@ export const login = async (req, res) => {
     });
   } catch (error) {
     console.error("LOGIN ERROR:", error);
-    res.status(500).json({ message: "Login failed" });
+    res.status(500).json({
+      message: "Login failed",
+      error: error.message,
+    });
   }
 };
