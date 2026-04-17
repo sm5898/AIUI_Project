@@ -10,318 +10,316 @@
 /* ── Hover popup card ─────────────────────────── */
 
 .map-hover-card {
- position: absolute;
- transform: translate(-50%, 8px);
- z-index: 1100;
- width: 240px;
- background: white;
- border-radius: 12px;
- box-shadow: 0 8px 28px rgba(0,0,0,0.18);
- overflow: hidden;
- pointer-events: auto;
- animation: hover-pop 0.15s ease;
- cursor: pointer;
+  position: absolute;
+  transform: translate(-50%, 8px);
+  z-index: 1100;
+  width: 240px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+  overflow: hidden;
+  pointer-events: auto;
+  animation: hover-pop 0.15s ease;
+  cursor: pointer;
 }
 
 @keyframes hover-pop {
- from { opacity: 0; transform: translate(-50%, 2px); }
- to   { opacity: 1; transform: translate(-50%, 8px); }
+  from { opacity: 0; transform: translate(-50%, 2px); }
+  to   { opacity: 1; transform: translate(-50%, 8px); }
 }
 
 .map-hover-header {
- padding: 10px 14px;
- color: white;
- font-weight: 700;
- font-size: 15px;
- font-family: Inter, Arial, sans-serif;
+  padding: 10px 14px;
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  font-family: Inter, Arial, sans-serif;
 }
 
 .map-hover-body {
- padding: 12px 14px 10px;
+  padding: 12px 14px 10px;
 }
 
 .map-hover-meta {
- display: flex;
- align-items: center;
- gap: 8px;
- margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
 .map-hover-avatar {
- width: 32px;
- height: 32px;
- border-radius: 50%;
- background: #0B1F44;
- color: white;
- display: flex;
- align-items: center;
- justify-content: center;
- font-size: 13px;
- font-weight: 600;
- flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #0B1F44;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
 }
 
 .map-hover-posted {
- font-size: 11px;
- color: #888;
- line-height: 1.2;
+  font-size: 11px;
+  color: #888;
+  line-height: 1.2;
 }
 
 .map-hover-name {
- font-size: 13px;
- font-weight: 600;
- color: #111;
- line-height: 1.2;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111;
+  line-height: 1.2;
 }
 
 .map-hover-dist {
- margin-left: auto;
- font-size: 12px;
- color: #555;
- white-space: nowrap;
+  margin-left: auto;
+  font-size: 12px;
+  color: #555;
+  white-space: nowrap;
 }
 
 .map-hover-desc {
- font-size: 13px;
- color: #444;
- margin: 0 0 10px;
- line-height: 1.45;
+  font-size: 13px;
+  color: #444;
+  margin: 0 0 10px;
+  line-height: 1.45;
 }
 
 .map-hover-divider {
- border: none;
- border-top: 1px solid #e5e7eb;
- margin: 0 0 8px;
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 0 0 8px;
 }
 
 .map-hover-cta {
- font-size: 12px;
- color: #888;
- margin: 0;
- text-align: center;
- transition: color 0.15s;
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+  text-align: center;
+  transition: color 0.15s;
 }
 
 .map-hover-card:hover .map-hover-cta {
- color: #0B1F44;
+  color: #0B1F44;
 }
 
 .map-wrapper {
- position: relative;
- flex: 1;
+  position: relative;
+  flex: 1;
 }
 
 .map-container {
- width: 100%;
- height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 /* ── Custom pin ───────────────────────────────── */
 
 .map-pin {
- display: flex;
- flex-direction: column;
- align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .map-pin svg {
- display: block;
+  display: block;
 }
 
 .map-pin-label {
- color: white;
- font-size: 14px;
- font-weight: 600;
- padding: 5px 14px;
- border-radius: 999px;
- white-space: nowrap;
- margin-top: 4px;
- font-family: Inter, Arial, sans-serif;
- box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+  margin-top: 4px;
+  font-family: Inter, Arial, sans-serif;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
 }
 
 /* ── Search overlay (top-left) ────────────────── */
 
 .map-search-overlay {
- position: absolute;
- top: 20px;
- left: 100px;
- z-index: 1000;
+  position: absolute;
+  top: 20px;
+  left: 100px;
+  z-index: 1000;
 }
 
-
 .map-search-btn {
- width: 48px;
- height: 48px;
- border-radius: 50%;
- background: #0B1F44;
- border: none;
- padding: 0;
- cursor: pointer;
- display: flex;
- align-items: center;
- justify-content: center;
- box-shadow: 0 2px 8px rgba(0,0,0,0.25);
- transition: background 0.15s;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #0B1F44;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  transition: background 0.15s;
 }
 
 .map-search-btn:hover {
- background: #162f66;
+  background: #162f66;
 }
 
 .map-search-input {
- width: 240px;
- padding: 12px 18px;
- border-radius: 999px;
- border: none;
- box-shadow: 0 2px 12px rgba(0,0,0,0.18);
- font-size: 14px;
- outline: none;
+  width: 240px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: none;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  font-size: 14px;
+  outline: none;
 }
 
 /* ── Filter pills (top-right) ─────────────────── */
 
 .map-filters {
- position: absolute;
- top: 20px;
- right: 100px;
- z-index: 1000;
- display: flex;
- gap: 8px;
+  position: absolute;
+  top: 20px;
+  right: 100px;
+  z-index: 1000;
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 .map-filter-btn {
- background: white;
- border-radius: 999px;
- padding: 8px 22px;
- font-size: 14px;
- font-weight: 600;
- cursor: pointer;
- color: #1f2937;
- transition: all 0.15s;
- box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+  border-radius: 999px;
+  padding: 8px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+  border: 1.5px solid #D4703A;
+  background: white;
+  color: #D4703A;
 }
 
-.map-filter-btn:first-child {
- border: 1.5px solid #D4703A;
-}
-
-.map-filter-btn:nth-child(2) {
- border: 1.5px solid #4A1A0A;
+.map-filter-btn + .map-filter-btn {
+  border: 1.5px solid #4A1A0A;
+  background: white;
+  color: #4A1A0A;
 }
 
 .map-filter-btn:hover {
- background: #f3f4f6;
+  opacity: 0.85;
 }
 
 .map-filter-btn.map-filter-borrow-active {
- background: #D4703A;
- border-color: #D4703A;
- color: white;
+  background: #D4703A !important;
+  border-color: #D4703A !important;
+  color: white !important;
 }
 
 .map-filter-btn.map-filter-service-active {
- background: #4A1A0A;
- border-color: #4A1A0A;
- color: white;
+  background: #4A1A0A !important;
+  border-color: #4A1A0A !important;
+  color: white !important;
 }
 
 .map-clear-filters-btn {
- background: none;
- border: none;
- color: #6b7280;
- font-size: 13px;
- font-weight: 500;
- cursor: pointer;
- padding: 0 4px;
- white-space: nowrap;
- transition: color 0.15s;
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0 4px;
+  white-space: nowrap;
+  transition: color 0.15s;
 }
 
 .map-clear-filters-btn:hover {
- color: #111;
+  color: #111;
 }
 
 /* ── View toggle ──────────────────────────────── */
 
 .view-toggle {
- display: flex;
- background: #e5e7eb;
- border-radius: 999px;
- padding: 3px;
- gap: 2px;
- margin-left: 8px;
+  display: flex;
+  background: #e5e7eb;
+  border-radius: 999px;
+  padding: 3px;
+  gap: 2px;
+  margin-left: 8px;
 }
 
 .view-toggle-btn {
- width: 38px;
- height: 38px;
- border-radius: 999px;
- border: none;
- padding: 0;
- cursor: pointer;
- display: flex;
- align-items: center;
- justify-content: center;
- background: transparent !important;
- color: #4b5563;
- transition: all 0.15s;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  color: #4b5563;
+  transition: all 0.15s;
 }
 
 .view-toggle-btn:hover {
- background: #d1d5db !important;
- color: #111827;
+  background: #d1d5db !important;
+  color: #111827;
 }
 
 .view-toggle-btn.view-toggle-active {
- background: #0B1F44 !important;
- color: white;
+  background: #0B1F44 !important;
+  color: white;
 }
 
 /* ── Map tile brand tint ──────────────────────── */
-/* Subtle warm-cool tone pulled from the navy/brown palette */
 
 .leaflet-tile-pane {
- filter: sepia(0.12) saturate(0.85) brightness(1.02);
+  filter: sepia(0.12) saturate(0.85) brightness(1.02);
 }
 
 /* ── Zoom controls ────────────────────────────── */
 
 .leaflet-control-zoom {
- border: none !important;
- box-shadow: 0 2px 8px rgba(0,0,0,0.18) !important;
- border-radius: 8px !important;
- overflow: hidden;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
 }
 
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
- background: #0B1F44 !important;
- color: white !important;
- border: none !important;
- width: 36px !important;
- height: 36px !important;
- line-height: 36px !important;
- font-size: 18px !important;
- font-weight: 400 !important;
- transition: background 0.15s !important;
+  background: #0B1F44 !important;
+  color: white !important;
+  border: none !important;
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  transition: background 0.15s !important;
 }
 
 .leaflet-control-zoom-in:hover,
 .leaflet-control-zoom-out:hover {
- background: #162f66 !important;
- color: white !important;
+  background: #162f66 !important;
+  color: white !important;
 }
 
-/* ── Attribution — minimal but legally present ── */
+/* ── Attribution ── */
 
 .leaflet-control-attribution {
- font-size: 9px !important;
- opacity: 0.45 !important;
- background: transparent !important;
- padding: 0 4px !important;
+  font-size: 9px !important;
+  opacity: 0.45 !important;
+  background: transparent !important;
+  padding: 0 4px !important;
 }
 
 .leaflet-control-attribution a {
- color: inherit !important;
+  color: inherit !important;
 }

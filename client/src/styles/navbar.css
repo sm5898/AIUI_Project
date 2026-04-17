@@ -1,13 +1,13 @@
-.navbar{
- display:flex;
- justify-content:space-between;
- align-items:center;
- padding:24px 100px;
- background:white;
- border-bottom:1px solid #eee;
- position: relative;
- overflow: visible;
- z-index: 9999;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background: white;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  overflow: visible;
+  z-index: 9999;
 }
 
 .nav-toast {
@@ -33,17 +33,17 @@
 
 /* LOGO DOT GRID */
 
-.logo{
- display:grid;
- grid-template-columns:repeat(2,10px);
- gap:6px;
+.logo {
+  display: grid;
+  grid-template-columns: repeat(2, 12px);
+  gap: 6px;
 }
 
-.logo div{
- width:10px;
- height:10px;
- background:#0B1F44;
- border-radius:50%;
+.logo div {
+  width: 12px;
+  height: 12px;
+  background: #0B1F44;
+  border-radius: 50%;
 }
 
 /* CENTER NAV PILL */
@@ -75,17 +75,17 @@
 
 /* PROFILE */
 
-.avatar{
- width:44px;
- height:44px;
- background:#0B1F44;
- border-radius:50%;
- display:flex;
- justify-content:center;
- align-items:center;
- color:white;
- font-weight:600;
- font-size:14px;
+.avatar {
+  width: 52px;
+  height: 52px;
+  background: #0B1F44;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
 }
 
 /* AVATAR DROPDOWN */
@@ -143,4 +143,132 @@
   height: 1px;
   background: #eee;
   margin: 4px 0;
+}
+
+/* ── Explore navbar search bar ── */
+
+.navbar-search-wrap {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 700px;
+}
+
+.navbar-search-input {
+  width: 100%;
+  padding: 16px 44px 16px 20px;
+  border-radius: 999px;
+  border: none;
+  font-size: 18px;
+  outline: none;
+  font-family: Inter, Arial, sans-serif;
+  box-sizing: border-box;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+
+.navbar-search-input:focus {
+  border-color: #0B1F44;
+}
+
+.navbar-search-dropdown {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  z-index: 10000;
+  overflow: hidden;
+}
+
+.navbar-search-item {
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #0B1F44;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #f3f4f6;
+  background: white;
+}
+
+.navbar-search-tag {
+  font-size: 11px;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.navbar-filter-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.navbar-pill {
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+
+
+.navbar-pill-borrow-active {
+  border: 1.5px solid #D4703A;
+  background: #D4703A;
+  color: white;
+}
+
+.navbar-pill-borrow {
+  border: 1.5px solid #D4703A;
+  background: white;
+  color: #D4703A;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.navbar-pill-service {
+  border: 1.5px solid #4A1A0A;
+  background: white;
+  color: #4A1A0A;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.navbar-pill-service-active {
+  border: 1.5px solid #4A1A0A;
+  background: #4A1A0A;
+  color: white;
+}
+
+.navbar-clear-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.navbar-transparent {
+  background: transparent !important;
+  border-bottom: none !important;
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 16px 40px;
+  box-sizing: border-box;
+  z-index: 1000;
 }

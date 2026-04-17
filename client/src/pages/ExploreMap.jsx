@@ -48,7 +48,6 @@ function FlyToListing({ target }) {
 
 export default function ExploreMap() {
   const { filtered, query, setQuery, filter, setFilter } = useSearch()
-  const [searchOpen, setSearchOpen] = useState(false)
   const [userLocation, setUserLocation] = useState(null)
   const [mapCenter, setMapCenter] = useState([40.724, -73.984])
   const [selectedListing, setSelectedListing] = useState(null)
@@ -91,9 +90,13 @@ export default function ExploreMap() {
     const val = e.target.value
     setQuery(val)
     if (val.length > 0) {
-      const matches = filtered.filter(item =>
-        item.title?.toLowerCase().includes(val.toLowerCase())
-      )
+      const seen = new Set()
+      const matches = filtered.filter(item => {
+        if (!item.title?.toLowerCase().includes(val.toLowerCase())) return false
+        if (seen.has(item.title)) return false
+        seen.add(item.title)
+        return true
+      })
       setSuggestions(matches)
       setShowSuggestions(true)
     } else {
@@ -124,7 +127,21 @@ export default function ExploreMap() {
 
   return (
     <div className="map-page">
-      <Navbar active="explore" />
+      <Navbar
+  active="explore"
+  showSearch={true}
+  searchProps={{
+    query,
+    filter,
+    suggestions,
+    showSuggestions,
+    searchRef,
+    handleSearchChange,
+    handleSuggestionClick,
+    setFilter,
+    handleClear: () => { setFilter("all"); setQuery("") }
+  }}
+/>
       <div className="map-wrapper">
         <MapContainer
           center={mapCenter}
@@ -209,106 +226,32 @@ export default function ExploreMap() {
           </div>
         )}
 
-        {/* Search button + dropdown */}
-        <div className="map-search-overlay" ref={searchRef}>
-          {searchOpen ? (
-            <div style={{ position: "relative" }}>
-              <input
-                autoFocus
-                className="map-search-input"
-                placeholder="Search your neighborhood..."
-                value={query}
-                onChange={handleSearchChange}
-                onBlur={() => { if (!query) setSearchOpen(false) }}
-              />
-              {showSuggestions && suggestions.length > 0 && (
-                <div style={{
-                  position: "absolute", top: "110%", left: 0, width: "100%",
-                  background: "white", borderRadius: "12px",
-                  boxShadow: "0 4px 16px rgba(0,0,0,0.15)", zIndex: 1001,
-                  overflow: "hidden"
-                }}>
-                  {suggestions.map(item => (
-                    <div
-                      key={item._id}
-                      onClick={() => handleSuggestionClick(item)}
-                      style={{
-                        padding: "10px 16px", cursor: "pointer", fontSize: "14px",
-                        color: "#0B1F44", display: "flex", alignItems: "center", gap: "8px",
-                        borderBottom: "1px solid #f3f4f6"
-                      }}
-                      onMouseEnter={e => e.currentTarget.style.background = "#f9fafb"}
-                      onMouseLeave={e => e.currentTarget.style.background = "white"}
-                    >
-                      <span style={{
-                        fontSize: "11px", color: "white", padding: "2px 8px",
-                        borderRadius: "999px", flexShrink: 0,
-                        background: item.type === "service" ? SERVICE_COLOR : BORROW_COLOR
-                      }}>
-                        {item.type === "service" ? "Service" : "Borrow"}
-                      </span>
-                      {item.title}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ) : (
-            <button className="map-search-btn" onClick={() => setSearchOpen(true)} aria-label="Search">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="7" />
-                <line x1="16.5" y1="16.5" x2="22" y2="22" />
-              </svg>
-            </button>
-          )}
+        
+        
+{/* Bottom nav pill */}
+        <div style={{
+          position: "absolute", bottom: "30px", left: "50%",
+          transform: "translateX(-50%)", zIndex: 1000,
+          background: "#0B1F44", borderRadius: "999px",
+          padding: "12px 40px", display: "flex", gap: "40px",
+          boxShadow: "0 4px 16px rgba(0,0,0,0.2)"
+        }}>
+          <span style={{ color: "white", opacity: 1, fontWeight: 600, cursor: "pointer", fontSize: "14px" }}>Explore</span>
+          <span style={{ color: "white", opacity: 0.6, cursor: "pointer", fontSize: "14px" }} onClick={() => navigate("/messages")}>Messages</span>
+          <span style={{ color: "white", opacity: 0.6, cursor: "pointer", fontSize: "14px" }} onClick={() => navigate("/create")}>Post</span>
         </div>
 
-        {/* Filter pills */}
-        <div className="map-filters">
-          {(filter !== "all" || query) && (
-            <button
-              className="map-clear-filters-btn"
-              onClick={() => { setFilter("all"); setQuery("") }}
-            >
-              × Clear
-            </button>
-          )}
-          <button
-            className={`map-filter-btn${filter === "borrow" ? " map-filter-borrow-active" : ""}`}
-            onClick={() => setFilter(filter === "borrow" ? "all" : "borrow")}
-          >Borrow</button>
-          <button
-            className={`map-filter-btn${filter === "service" ? " map-filter-service-active" : ""}`}
-            onClick={() => setFilter(filter === "service" ? "all" : "service")}
-          >Service</button>
-          <div className="view-toggle">
-            <button className="view-toggle-btn" onClick={() => navigate("/list")} aria-label="List view">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <rect x="3" y="3" width="4" height="4" rx="0.5" fill="currentColor"/>
-                <rect x="9" y="3" width="4" height="4" rx="0.5" fill="currentColor"/>
-                <rect x="15" y="3" width="4" height="4" rx="0.5" fill="currentColor"/>
-                <rect x="3" y="9" width="4" height="4" rx="0.5" fill="currentColor"/>
-                <rect x="9" y="9" width="4" height="4" rx="0.5" fill="currentColor"/>
-                <rect x="15" y="9" width="4" height="4" rx="0.5" fill="currentColor"/>
-                <rect x="3" y="15" width="4" height="4" rx="0.5" fill="currentColor"/>
-                <rect x="9" y="15" width="4" height="4" rx="0.5" fill="currentColor"/>
-                <rect x="15" y="15" width="4" height="4" rx="0.5" fill="currentColor"/>
-              </svg>
-            </button>
-            <button className="view-toggle-btn view-toggle-active" aria-label="Map view">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="10" r="7" stroke="currentColor" strokeWidth="1.8"/>
-                <path d="M12 21 Q12 21 7 14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
-                <path d="M12 21 Q12 21 17 14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
-                <circle cx="12" cy="10" r="2.5" fill="currentColor"/>
-              </svg>
-            </button>
-          </div>
-        </div>
       </div>
 
+    
       {selectedListing && (
-        <ListingModal listing={selectedListing} onClose={() => setSelectedListing(null)} />
+        <ListingModal
+          listing={selectedListing}
+          onClose={() => setSelectedListing(null)}
+          distance={userLocation && selectedListing.location ?
+            getDistance(userLocation.lat, userLocation.lng, selectedListing.location.lat, selectedListing.location.lng) + " mi away"
+            : null}
+        />
       )}
     </div>
   )
