@@ -60,11 +60,21 @@ export const createListing = async (req, res) => {
       description,
       type,
       company,
-      image,
       availability,
-      location,
       createdBy,
+      createdById,
     } = req.body;
+
+    const image = req.file ? `/uploads/${req.file.filename}` : "";
+
+    let location;
+    try {
+      location = JSON.parse(req.body.location);
+    } catch {
+      return res.status(400).json({
+        message: "Location must be valid JSON",
+      });
+    }
 
     if (
       !title ||
@@ -91,6 +101,7 @@ export const createListing = async (req, res) => {
       availability,
       location,
       createdBy,
+      createdById: createdById || null,
     });
 
     const savedListing = await newListing.save();
