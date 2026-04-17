@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import listingRoutes from "./routes/listingRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js";
+import savedRoutes from "./routes/savedRoutes.js";
+import messageRoutes from "./routes/messageRoutes.js";
 
 dotenv.config();
 
@@ -16,6 +18,9 @@ app.use(express.json());
 app.use("/api/listings", listingRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/saved", savedRoutes);
+app.use("/api/messages", messageRoutes);
+app.use("/uploads", express.static("uploads"));
 
 app.get("/", (req, res) => {
   res.send("The Block backend is running");
