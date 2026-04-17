@@ -53,7 +53,7 @@ export default function Navbar({ active, locked, showSearch, searchProps }) {
 
         {showSearch ? (
           <div className="navbar-search-wrap" ref={searchProps?.searchRef}>
-            <div style={{ position: "relative", flex: 1 }}>
+            <div style={{ position: "relative" }}>
               <input
                 className="navbar-search-input"
                 placeholder="What are you looking to borrow or hire?"
@@ -98,31 +98,46 @@ export default function Navbar({ active, locked, showSearch, searchProps }) {
                 className={`navbar-pill${searchProps?.filter === "service" ? " navbar-pill-service-active" : " navbar-pill-service"}`}
                 onClick={() => searchProps?.setFilter(searchProps?.filter === "service" ? "all" : "service")}
               >Service</button>
-              {(searchProps?.filter !== "all" || searchProps?.query) && (
-                <button className="navbar-clear-btn" onClick={searchProps?.handleClear}>× Clear</button>
-              )}
 
+              {/* Distance slider */}
               <div style={{ display: "flex", alignItems: "center", gap: "8px", borderLeft: "1px solid #e5e7eb", paddingLeft: "12px" }}>
                 <span style={{ fontSize: "13px", color: "#6b7280", whiteSpace: "nowrap", fontWeight: "600" }}>
-                  📍 {searchProps?.distanceFilter ? `${searchProps.distanceFilter} mi` : "Any"}
+                  Filter distance
                 </span>
-                <input
-                  type="range"
-                  min="0.5"
-                  max="5"
-                  step="0.5"
-                  value={searchProps?.distanceFilter || 5}
-                  onChange={e => {
-                    const val = parseFloat(e.target.value)
-                    searchProps?.setDistanceFilter(val === 5 ? null : val)
-                  }}
-                  style={{
-                    width: "90px",
-                    accentColor: "#0B1F44",
-                    cursor: "pointer"
-                  }}
-                />
+                <div style={{ position: "relative", width: "90px" }}>
+                  <div style={{
+                    position: "absolute",
+                    top: "-20px",
+                    left: `${((searchProps?.distanceFilter || 5) - 0.1) / (5 - 0.1) * 100}%`,
+                    transform: "translateX(-50%)",
+                    fontSize: "11px",
+                    fontWeight: "600",
+                    color: "#0B1F44",
+                    whiteSpace: "nowrap"
+                  }}>
+                    {searchProps?.distanceFilter || 5} mi
+                  </div>
+                  <input
+                    type="range"
+                    min="0.1"
+                    max="5"
+                    step="0.1"
+                    value={searchProps?.distanceFilter || 5}
+                    onChange={e => searchProps?.setDistanceFilter(parseFloat(e.target.value))}
+                    onMouseDown={e => e.stopPropagation()}
+                    onTouchStart={e => e.stopPropagation()}
+                    style={{ width: "90px", accentColor: "#0B1F44", cursor: "pointer", position: "relative", zIndex: 9999 }}
+                  />
+                </div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13"/>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </svg>
               </div>
+
+              {(searchProps?.filter !== "all" || searchProps?.query || searchProps?.distanceFilter !== 5) && (
+                <button className="navbar-clear-btn" onClick={searchProps?.handleClear}>× Clear filters</button>
+              )}
             </div>
           </div>
         ) : (

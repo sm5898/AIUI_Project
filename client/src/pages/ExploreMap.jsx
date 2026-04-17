@@ -55,6 +55,7 @@ export default function ExploreMap() {
   const [suggestions, setSuggestions] = useState([])
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [hovered, setHovered] = useState(null)
+  const [distanceFilter, setDistanceFilter] = useState(5)
   const searchRef = useRef(null)
   const hoverTimeout = useRef(null)
   const navigate = useNavigate()
@@ -121,9 +122,20 @@ export default function ExploreMap() {
     return (R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))).toFixed(1)
   }
 
-  const mapListings = filtered.filter(
-    item => item.location?.lat && item.location?.lng
-  )
+  const mapListings = filtered.filter(item => {
+    if (!item.location?.lat || !item.location?.lng) return false
+    
+    if (distanceFilter && userLocation) {
+      const distance = parseFloat(getDistance(
+        userLocation.lat,
+        userLocation.lng,
+        item.location.lat,
+        item.location.lng
+      ))
+      return distance <= distanceFilter
+    }
+    return true
+  })
 
   return (
     <div className="map-page">
@@ -139,16 +151,19 @@ export default function ExploreMap() {
     handleSearchChange,
     handleSuggestionClick,
     setFilter,
-    handleClear: () => { setFilter("all"); setQuery("") }
+    distanceFilter,
+    setDistanceFilter,
+    handleClear: () => { setFilter("all"); setQuery(""); setDistanceFilter(null) }
   }}
 />
       <div className="map-wrapper">
         <MapContainer
-          center={mapCenter}
-          zoom={17}
-          className="map-container"
-          zoomControl={false}
-        >
+  center={mapCenter}
+  zoom={17}
+  className="map-container"
+  zoomControl={false}
+  style={{ zIndex: 1 }}
+>
           <TileLayer
             url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank">CARTO</a>'

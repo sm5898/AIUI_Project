@@ -10,33 +10,46 @@
   z-index: 9999;
 }
 
+.navbar-transparent {
+  background: transparent !important;
+  border-bottom: none !important;
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 16px 40px;
+  box-sizing: border-box;
+  z-index: 1000;
+  pointer-events: all;
+}
+
 .nav-toast {
- position: absolute;
- top: calc(100% + 8px);
- left: 50%;
- transform: translateX(-50%);
- background: #0B1F44;
- color: #fff;
- font-size: 13px;
- padding: 10px 22px;
- border-radius: 999px;
- white-space: nowrap;
- z-index: 999;
- pointer-events: none;
- animation: toast-in 0.2s ease;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0B1F44;
+  color: #fff;
+  font-size: 13px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  white-space: nowrap;
+  z-index: 999;
+  pointer-events: none;
+  animation: toast-in 0.2s ease;
 }
 
 @keyframes toast-in {
- from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
- to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
-
-/* LOGO DOT GRID */
 
 .logo {
   display: grid;
   grid-template-columns: repeat(2, 12px);
   gap: 6px;
+  flex-shrink: 0;
 }
 
 .logo div {
@@ -46,34 +59,30 @@
   border-radius: 50%;
 }
 
-/* CENTER NAV PILL */
-
-.nav-pill{
- display:flex;
- gap:40px;
- background:#0B1F44;
- padding:12px 40px;
- border-radius:999px;
- color:white;
- font-size:14px;
+.nav-pill {
+  display: flex;
+  gap: 40px;
+  background: #0B1F44;
+  padding: 12px 40px;
+  border-radius: 999px;
+  color: white;
+  font-size: 14px;
 }
 
-.nav-pill span{
- opacity:.6;
- cursor:pointer;
- transition:.2s;
+.nav-pill span {
+  opacity: .6;
+  cursor: pointer;
+  transition: .2s;
 }
 
-.nav-pill span:hover{
- opacity:1;
+.nav-pill span:hover {
+  opacity: 1;
 }
 
-.nav-pill .active{
- opacity:1;
- font-weight:600;
+.nav-pill .active {
+  opacity: 1;
+  font-weight: 600;
 }
-
-/* PROFILE */
 
 .avatar {
   width: 52px;
@@ -86,9 +95,8 @@
   color: white;
   font-weight: 600;
   font-size: 15px;
+  flex-shrink: 0;
 }
-
-/* AVATAR DROPDOWN */
 
 .nb-avatar-wrap {
   position: relative;
@@ -153,24 +161,26 @@
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 10px;
-  width: 700px;
+  gap: 12px;
+  width: 780px;
+  justify-content: flex-start;
 }
 
 .navbar-search-input {
-  width: 100%;
-  padding: 16px 44px 16px 20px;
+  width: 500px;
+  flex-shrink: 0;
+  padding: 18px 48px 18px 24px;
   border-radius: 999px;
   border: none;
-  font-size: 18px;
+  font-size: 20px;
   outline: none;
   font-family: Inter, Arial, sans-serif;
   box-sizing: border-box;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.15);
 }
 
 .navbar-search-input:focus {
-  border-color: #0B1F44;
+  border: 1.5px solid #0B1F44;
 }
 
 .navbar-search-dropdown {
@@ -220,10 +230,15 @@
   cursor: pointer;
   transition: all 0.15s;
   white-space: nowrap;
+  flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-
+.navbar-pill-borrow {
+  border: 1.5px solid #D4703A;
+  background: white;
+  color: #D4703A;
+}
 
 .navbar-pill-borrow-active {
   border: 1.5px solid #D4703A;
@@ -231,18 +246,10 @@
   color: white;
 }
 
-.navbar-pill-borrow {
-  border: 1.5px solid #D4703A;
-  background: white;
-  color: #D4703A;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
 .navbar-pill-service {
   border: 1.5px solid #4A1A0A;
   background: white;
   color: #4A1A0A;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .navbar-pill-service-active {
@@ -258,17 +265,10 @@
   font-size: 13px;
   cursor: pointer;
   padding: 0 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.navbar-transparent {
-  background: transparent !important;
-  border-bottom: none !important;
-  position: absolute !important;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  padding: 16px 40px;
-  box-sizing: border-box;
-  z-index: 1000;
+.navbar-clear-btn:hover {
+  color: #111;
 }
