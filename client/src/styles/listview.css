@@ -79,6 +79,22 @@
  color: white;
 }
 
+.lv-clear-filters-btn {
+ background: none;
+ border: none;
+ color: #6b7280;
+ font-size: 13px;
+ font-weight: 500;
+ cursor: pointer;
+ padding: 0 4px;
+ white-space: nowrap;
+ transition: color 0.15s;
+}
+
+.lv-clear-filters-btn:hover {
+ color: #111;
+}
+
 /* ── View toggle ──────────────────────────────── */
 
 .view-toggle {

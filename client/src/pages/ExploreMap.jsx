@@ -146,6 +146,15 @@ export default function ExploreMap() {
     </div>
 
     <div className="map-filters">
+     {(filter !== "all" || query) && (
+      <button
+       className="map-clear-filters-btn"
+       onClick={() => { setFilter("all"); setQuery("") }}
+      >
+       × Clear
+      </button>
+     )}
+
      <button
       className={`map-filter-btn${filter === "borrow" ? " map-filter-borrow-active" : ""}`}
       onClick={() => setFilter(filter === "borrow" ? "all" : "borrow")}

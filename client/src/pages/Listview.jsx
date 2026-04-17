@@ -36,6 +36,15 @@ export default function ListView() {
     </div>
 
     <div className="lv-filters">
+     {(filter !== "all" || query) && (
+      <button
+       className="lv-clear-filters-btn"
+       onClick={() => { setFilter("all"); setQuery("") }}
+      >
+       × Clear
+      </button>
+     )}
+
      <button
       className={`lv-filter-btn${filter === "borrow" ? " lv-filter-borrow-active" : ""}`}
       onClick={() => setFilter(filter === "borrow" ? "all" : "borrow")}
