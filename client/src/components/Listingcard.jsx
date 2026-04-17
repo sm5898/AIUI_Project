@@ -35,7 +35,7 @@ export default function ListingCard({ listing, onClick }) {
         <p className="card-meta"><strong>Availability:</strong> {listing.availability}</p>
       )}
       <hr className="card-divider" />
-      <p className="card-posted">Posted by {listing.postedBy || "a neighbor"}</p>
+      <p className="card-posted">Posted by {listing.createdBy || listing.postedBy || "a neighbor"}</p>
     </div>
   );
 }

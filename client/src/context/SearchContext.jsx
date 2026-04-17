@@ -47,6 +47,7 @@ export function SearchProvider({ children }) {
         setQuery,
         filter,
         setFilter,
+        fetchListings,
       }}
     >
       {children}
