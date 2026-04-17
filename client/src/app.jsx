@@ -12,6 +12,7 @@ import CreatePost from "./pages/Createpost"
 import MyListings from "./pages/MyListings";
 import Welcome from "./pages/Welcome";
 import Profile from "./pages/Profile";
+import Onboarding from "./pages/Onboarding";
 
 export default function App(){
 
@@ -32,6 +33,7 @@ return(
 <Route path="/create" element={<CreatePost/>}/>
 <Route path="/my-listings" element={<MyListings />} />
 <Route path="/profile" element={<Profile />} />
+<Route path="/onboarding" element={<Onboarding />} />
 
 </Routes>
 

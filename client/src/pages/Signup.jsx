@@ -62,7 +62,8 @@ export default function Signup() {
       });
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
-      navigate("/explore");
+      localStorage.setItem("isNewUser", "true");
+      navigate("/onboarding");
     } catch (err) {
       setError(err?.response?.data?.message || "Could not create account");
     } finally {
