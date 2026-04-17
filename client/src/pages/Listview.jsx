@@ -6,9 +6,24 @@ import { useSearch } from "../context/SearchContext"
 import "../styles/listview.css"
 
 export default function ListView() {
- const { filtered, query, setQuery, filter, setFilter } = useSearch()
+ const { 
+  filtered, 
+  query, 
+  setQuery, 
+  filter, 
+  setFilter, 
+  availability,
+  setAvailability,
+  radius,
+  setRadius,
+  enableDistance,
+  setEnableDistance,
+  clearFilters,
+  userLocation
+ } = useSearch()
  const navigate = useNavigate()
  const [searchOpen, setSearchOpen] = useState(false)
+ const [filtersOpen, setFiltersOpen] = useState(false)
 
  return (
   <div>
@@ -49,6 +64,17 @@ export default function ListView() {
       Service
      </button>
 
+     {/* Advanced filters button */}
+     <button 
+      className="lv-advanced-filters-btn"
+      onClick={() => setFiltersOpen(!filtersOpen)}
+      title="Advanced filters"
+     >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+       <path d="M3 4a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v2.586a1 1 0 0 1-.293.707l-6.414 6.414a1 1 0 0 0-.293.707V17l-4 4v-6.586a1 1 0 0 0-.293-.707L3.293 7.293A1 1 0 0 1 3 6.586V4z"/>
+      </svg>
+     </button>
+
      {/* View toggle */}
      <div className="view-toggle">
       <button className="view-toggle-btn view-toggle-active" aria-label="List view">
@@ -74,11 +100,71 @@ export default function ListView() {
       </button>
      </div>
     </div>
+
+    {/* Advanced Filters Panel */}
+    {filtersOpen && (
+     <div className="lv-advanced-filters-panel">
+      <div className="lv-filter-row">
+       <label>Availability:</label>
+       <select 
+        value={availability} 
+        onChange={(e) => setAvailability(e.target.value)}
+        className="lv-filter-select"
+       >
+        <option value="all">All Availability</option>
+        <option value="Weekdays">Weekdays</option>
+        <option value="Weekends">Weekends</option>
+        <option value="Evenings">Evenings</option>
+        <option value="Mornings">Mornings</option>
+        <option value="Anytime">Anytime</option>
+       </select>
+      </div>
+
+      {userLocation && (
+       <div className="lv-filter-row">
+        <label>
+         <input 
+          type="checkbox"
+          checked={enableDistance}
+          onChange={(e) => setEnableDistance(e.target.checked)}
+         />
+         Search by Distance ({radius} miles)
+        </label>
+        {enableDistance && (
+         <input 
+          type="range" 
+          min="1" 
+          max="50" 
+          value={radius}
+          onChange={(e) => setRadius(Number(e.target.value))}
+          className="lv-radius-slider"
+         />
+        )}
+       </div>
+      )}
+
+      <div className="lv-filter-actions">
+       <button 
+        onClick={clearFilters}
+        className="lv-clear-filters-btn"
+       >
+        Clear All Filters
+       </button>
+      </div>
+     </div>
+    )}
    </div>
 
    <div className="grid-list">
     {filtered.map(item => (
-     <ListingCard key={item._id} listing={item} />
+     <div key={item._id} className="listing-card-with-distance">
+      <ListingCard listing={item} />
+      {item.distance && (
+       <div className="card-distance-badge">
+        {item.distance.toFixed(1)} mi away
+       </div>
+      )}
+     </div>
     ))}
     {filtered.length === 0 && (
      <p className="lv-empty">No listings match your search.</p>

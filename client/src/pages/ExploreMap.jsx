@@ -28,8 +28,23 @@ function createPinIcon(color, title) {
 }
 
 export default function ExploreMap() {
- const { filtered, query, setQuery, filter, setFilter } = useSearch()
+ const { 
+  filtered, 
+  query, 
+  setQuery, 
+  filter, 
+  setFilter,
+  availability,
+  setAvailability,
+  radius,
+  setRadius,
+  enableDistance,
+  setEnableDistance,
+  clearFilters,
+  userLocation
+ } = useSearch()
  const [searchOpen, setSearchOpen] = useState(false)
+ const [filtersOpen, setFiltersOpen] = useState(false)
  const [hovered, setHovered] = useState(null)
  const hoverTimeout = useRef(null)
  const navigate = useNavigate()
@@ -159,6 +174,17 @@ export default function ExploreMap() {
       Service
      </button>
 
+     {/* Advanced filters button */}
+     <button 
+      className="map-advanced-filters-btn"
+      onClick={() => setFiltersOpen(!filtersOpen)}
+      title="Advanced filters"
+     >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+       <path d="M3 4a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v2.586a1 1 0 0 1-.293.707l-6.414 6.414a1 1 0 0 0-.293.707V17l-4 4v-6.586a1 1 0 0 0-.293-.707L3.293 7.293A1 1 0 0 1 3 6.586V4z"/>
+      </svg>
+     </button>
+
      <div className="view-toggle">
       <button className="view-toggle-btn" onClick={() => navigate("/list")} aria-label="List view">
        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -183,6 +209,59 @@ export default function ExploreMap() {
       </button>
      </div>
     </div>
+
+    {/* Advanced Filters Panel */}
+    {filtersOpen && (
+     <div className="map-advanced-filters-panel">
+      <div className="map-filter-row">
+       <label>Availability:</label>
+       <select 
+        value={availability} 
+        onChange={(e) => setAvailability(e.target.value)}
+        className="map-filter-select"
+       >
+        <option value="all">All Availability</option>
+        <option value="Weekdays">Weekdays</option>
+        <option value="Weekends">Weekends</option>
+        <option value="Evenings">Evenings</option>
+        <option value="Mornings">Mornings</option>
+        <option value="Anytime">Anytime</option>
+       </select>
+      </div>
+
+      {userLocation && (
+       <div className="map-filter-row">
+        <label>
+         <input 
+          type="checkbox"
+          checked={enableDistance}
+          onChange={(e) => setEnableDistance(e.target.checked)}
+         />
+         Search by Distance ({radius} miles)
+        </label>
+        {enableDistance && (
+         <input 
+          type="range" 
+          min="1" 
+          max="50" 
+          value={radius}
+          onChange={(e) => setRadius(Number(e.target.value))}
+          className="map-radius-slider"
+         />
+        )}
+       </div>
+      )}
+
+      <div className="map-filter-actions">
+       <button 
+        onClick={clearFilters}
+        className="map-clear-filters-btn"
+       >
+        Clear All Filters
+       </button>
+      </div>
+     </div>
+    )}
    </div>
   </div>
  )
