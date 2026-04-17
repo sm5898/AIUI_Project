@@ -1,0 +1,478 @@
+/* ── Profile page ───────────────────────────────── */
+
+.pf-loading {
+  min-height: 100vh;
+  background: #f8f7f5;
+}
+
+.pf-root {
+  min-height: 100vh;
+  background: #f8f7f5;
+}
+
+.pf-page {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 40px 40px 80px;
+}
+
+.pf-page-title {
+  font-family: 'Libre Franklin', Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: #0B1F44;
+  margin: 0 0 28px;
+  letter-spacing: -0.5px;
+}
+
+/* ── Two-column layout ──────────────────────────── */
+
+.pf-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ── Sidebar card ───────────────────────────────── */
+
+.pf-sidebar-card,
+.pf-edit-card {
+  background: white;
+  border-radius: 20px;
+  padding: 32px 28px 28px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ── Avatar ─────────────────────────────────────── */
+
+.pf-avatar-wrap {
+  margin-bottom: 16px;
+}
+
+.pf-avatar-img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #f0ebe5;
+}
+
+.pf-avatar-initials {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: #0B1F44;
+  color: white;
+  font-size: 28px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 1px;
+}
+
+.pf-name {
+  font-family: 'Libre Franklin', Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0B1F44;
+  margin: 0 0 4px;
+}
+
+.pf-handle {
+  font-size: 13px;
+  color: rgba(0,0,0,0.4);
+  margin: 0 0 8px;
+}
+
+.pf-location {
+  font-size: 13px;
+  color: #0B1F44;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 0;
+}
+
+.pf-divider {
+  width: 100%;
+  height: 1px;
+  background: #f0ebe5;
+  margin: 20px 0;
+}
+
+.pf-section-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0B1F44;
+  margin: 0 0 10px;
+  text-align: left;
+  width: 100%;
+}
+
+.pf-bio {
+  font-size: 14px;
+  color: rgba(0,0,0,0.55);
+  line-height: 1.65;
+  margin: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.pf-stats {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px;
+  width: 100%;
+  text-align: left;
+}
+
+.pf-stats li {
+  font-size: 14px;
+  color: rgba(0,0,0,0.65);
+  margin-bottom: 5px;
+  line-height: 1.5;
+}
+
+.pf-stats li strong {
+  color: #0B1F44;
+}
+
+.pf-joined {
+  font-size: 12px;
+  color: rgba(0,0,0,0.35);
+  margin: 4px 0 20px;
+  width: 100%;
+  text-align: left;
+}
+
+.pf-edit-btn {
+  background: #0B1F44;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 0;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pf-edit-btn:hover { background: #1a3460; }
+
+/* ── Edit card ──────────────────────────────────── */
+
+.pf-edit-card {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.pf-edit-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0B1F44;
+  margin: 0 0 20px;
+}
+
+.pf-edit-avatar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.pf-edit-avatar-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.pf-edit-avatar-initials {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #0B1F44;
+  color: white;
+  font-size: 22px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pf-edit-avatar-btn {
+  background: none;
+  border: 1px solid #D4703A;
+  color: #D4703A;
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.pf-edit-avatar-btn:hover { background: #D4703A; color: white; }
+
+.pf-edit-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(0,0,0,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 12px 0 4px;
+}
+
+.pf-edit-input,
+.pf-edit-textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #e5e5e5;
+  padding: 8px 0;
+  font-size: 15px;
+  font-weight: 500;
+  background: transparent;
+  outline: none;
+  color: #111;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+  resize: none;
+}
+.pf-edit-input:focus,
+.pf-edit-textarea:focus { border-bottom-color: #D4703A; }
+
+.pf-edit-error {
+  font-size: 13px;
+  color: #dc2626;
+  margin: 8px 0 0;
+}
+
+.pf-edit-actions {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.pf-edit-cancel {
+  flex: 1;
+  background: none;
+  border: 1.5px solid #e5e5e5;
+  border-radius: 999px;
+  padding: 11px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(0,0,0,0.5);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.pf-edit-cancel:hover { border-color: #aaa; }
+
+.pf-edit-save {
+  flex: 1;
+  background: #0B1F44;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 11px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pf-edit-save:hover { background: #1a3460; }
+.pf-edit-save:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ── Main content ───────────────────────────────── */
+
+.pf-main {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.pf-section {
+  background: white;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+
+.pf-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.pf-section-title {
+  font-family: 'Libre Franklin', Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0B1F44;
+  margin: 0 0 20px;
+  letter-spacing: -0.3px;
+}
+
+.pf-section-header .pf-section-title {
+  margin: 0;
+}
+
+.pf-view-all {
+  font-size: 13px;
+  font-weight: 600;
+  color: #D4703A;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.2s;
+}
+.pf-view-all:hover { opacity: 0.7; }
+
+/* ── Listing cards grid ─────────────────────────── */
+
+.pf-listings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.pf-listing-card {
+  border: 1.5px solid #f0ebe5;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  transition: box-shadow 0.2s;
+}
+.pf-listing-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+
+.pf-listing-img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+
+.pf-listing-img--empty {
+  background: #f0ebe5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pf-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-transform: capitalize;
+}
+.pf-tag--lend    { background: #D4703A; color: white; }
+.pf-tag--borrow  { background: #0B1F44; color: white; }
+.pf-tag--service { background: #4A1A0A; color: white; }
+
+.pf-listing-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+}
+
+.pf-listing-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0B1F44;
+}
+
+.pf-listing-arrow {
+  font-size: 16px;
+  color: #D4703A;
+}
+
+/* ── Empty state ────────────────────────────────── */
+
+.pf-empty {
+  text-align: center;
+  padding: 32px 0;
+  color: rgba(0,0,0,0.45);
+  font-size: 14px;
+}
+
+.pf-empty-btn {
+  margin-top: 12px;
+  background: #D4703A;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pf-empty-btn:hover { background: #bc5e2e; }
+
+/* ── Activity ───────────────────────────────────── */
+
+.pf-activity-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.pf-activity-empty {
+  font-size: 14px;
+  color: rgba(0,0,0,0.4);
+  text-align: center;
+  padding: 24px 0;
+}
+
+.pf-activity-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+}
+
+.pf-activity-row--border {
+  border-bottom: 1px solid #f0ebe5;
+}
+
+.pf-activity-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #0B1F44;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pf-activity-text {
+  font-size: 14px;
+  color: rgba(0,0,0,0.7);
+  margin: 0;
+  flex: 1;
+  line-height: 1.5;
+}
+
+.pf-activity-time {
+  font-size: 12px;
+  color: rgba(0,0,0,0.35);
+  white-space: nowrap;
+}
