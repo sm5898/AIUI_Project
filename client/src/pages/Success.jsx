@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function Success() {
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const firstName = user?.firstName || user?.name?.split(" ")[0] || "neighbor";
 
   return (
     <div style={{
@@ -45,7 +47,7 @@ export default function Success() {
         fontSize: "36px", fontWeight: 800, color: "white",
         margin: 0, textAlign: "center"
       }}>
-        Welcome to The Block!
+        Welcome, {firstName}! 👋
       </h1>
 
       <p style={{
