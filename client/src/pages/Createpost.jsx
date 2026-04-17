@@ -2,8 +2,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 import Navbar from "../components/Navbar";
+import { useSearch } from "../context/SearchContext";
 import "../styles/createpost.css";
 
 const BORROW_COLOR = "#D4703A";
@@ -22,7 +24,10 @@ export default function CreatePost() {
   const [location, setLocation] = useState(null);
   const [locationStatus, setLocationStatus] = useState("detecting");
   const [submitError, setSubmitError] = useState("");
+  const [showToast, setShowToast] = useState(false);
   const fileInputRef = useRef();
+  const navigate = useNavigate();
+  const { fetchListings } = useSearch();
 
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -70,20 +75,39 @@ export default function CreatePost() {
       setSubmitError("You must be logged in to create a listing.");
       return;
     }
-    await api.post("/listings", {
-      title,
-      description,
-      type: postType,
-      company,
-      availability: availabilityText,
-      location,
-      createdBy: user.firstName,
+    const token = localStorage.getItem("token");
+    const form = new FormData();
+    form.append("title", title);
+    form.append("description", description);
+    form.append("type", postType);
+    form.append("company", company);
+    form.append("availability", availabilityText);
+    form.append("location", JSON.stringify(location));
+    form.append("createdBy", `${user.firstName} ${user.lastName}`.trim());
+    form.append("createdById", user.id || user._id);
+    if (images[0]) form.append("image", images[0]);
+    await api.post("/listings", form, {
+      headers: { Authorization: `Bearer ${token}` },
     });
+    await fetchListings();
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+      navigate("/list");
+    }, 2000);
   };
 
   return (
     <div className="cp-page">
       <Navbar active="post" />
+      {showToast && (
+        <div className="cp-toast">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          Listing created successfully!
+        </div>
+      )}
 
       <div className="cp-body">
         <h1 className="cp-heading">Create Post</h1>
