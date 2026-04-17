@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react"
-import { MapContainer, TileLayer, Marker, ZoomControl, Popup, useMap } from "react-leaflet"
+import { MapContainer, TileLayer, Marker, ZoomControl, useMap } from "react-leaflet"
 import { useNavigate } from "react-router-dom"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
 import Navbar from "../components/Navbar"
+import ListingModal from "../components/ListingModal"
 import { useSearch } from "../context/SearchContext"
 import "../styles/map.css"
 
@@ -51,7 +52,6 @@ export default function ExploreMap() {
   const [userLocation, setUserLocation] = useState(null)
   const [mapCenter, setMapCenter] = useState([40.724, -73.984])
   const [selectedListing, setSelectedListing] = useState(null)
-  const [saved, setSaved] = useState(false)
   const [flyTarget, setFlyTarget] = useState(null)
   const [suggestions, setSuggestions] = useState([])
   const [showSuggestions, setShowSuggestions] = useState(false)
@@ -164,7 +164,7 @@ export default function ExploreMap() {
                   }
                 },
                 mouseout: () => clearHover(),
-                click: () => { setSelectedListing(item); setSaved(false) }
+                click: () => { setHovered(null); setSelectedListing(item) }
               }}
             />
           ))}
@@ -177,6 +177,7 @@ export default function ExploreMap() {
             style={{ left: hovered.x, top: hovered.y }}
             onMouseEnter={cancelClearHover}
             onMouseLeave={() => setHovered(null)}
+            onClick={() => { setHovered(null); setSelectedListing(hovered.item) }}
           >
             <div
               className="map-hover-header"
@@ -264,6 +265,14 @@ export default function ExploreMap() {
 
         {/* Filter pills */}
         <div className="map-filters">
+          {(filter !== "all" || query) && (
+            <button
+              className="map-clear-filters-btn"
+              onClick={() => { setFilter("all"); setQuery("") }}
+            >
+              × Clear
+            </button>
+          )}
           <button
             className={`map-filter-btn${filter === "borrow" ? " map-filter-borrow-active" : ""}`}
             onClick={() => setFilter(filter === "borrow" ? "all" : "borrow")}
@@ -296,110 +305,11 @@ export default function ExploreMap() {
             </button>
           </div>
         </div>
-
-        {/* Listing detail overlay */}
-        {selectedListing && (
-          <div
-            style={{
-              position: "absolute", top: 0, left: 0, width: "100%", height: "100%",
-              background: "rgba(0,0,0,0.5)", zIndex: 2000,
-              display: "flex", alignItems: "center", justifyContent: "center"
-            }}
-            onClick={() => setSelectedListing(null)}
-          >
-            <div
-              style={{
-                background: "white", borderRadius: "16px", overflow: "hidden",
-                width: "520px", maxWidth: "90%", boxShadow: "0 8px 40px rgba(0,0,0,0.2)",
-                maxHeight: "80vh", overflowY: "auto", border: "2px solid #4A1A0A"
-              }}
-              onClick={e => e.stopPropagation()}
-            >
-              <div style={{ padding: "16px 24px 8px 24px" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
-                  <h2 style={{ fontSize: "22px", fontWeight: "700", color: "#0B1F44", margin: 0, flex: 1, paddingRight: "12px" }}>
-                    {selectedListing.title}
-                  </h2>
-                  <div style={{ display: "flex", gap: "8px", alignItems: "center", flexShrink: 0 }}>
-                    <button
-                      onClick={() => setSaved(!saved)}
-                      style={{ background: "none", border: "none", cursor: "pointer", padding: "4px" }}
-                      title="Save listing"
-                    >
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill={saved ? "#0B1F44" : "none"} stroke="#0B1F44" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
-                      </svg>
-                    </button>
-                    <button
-                      onClick={() => setSelectedListing(null)}
-                      style={{ background: "none", border: "none", fontSize: "20px", cursor: "pointer", color: "#6b7280", padding: "4px" }}
-                    >✕</button>
-                  </div>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
-                  <span style={{
-                    fontSize: "13px", color: "white",
-                    background: selectedListing.type === "service" ? "#4A1A0A" : "#D4703A",
-                    padding: "3px 12px", borderRadius: "999px"
-                  }}>
-                    {selectedListing.type === "service" ? "Service" : "Borrow"}
-                  </span>
-                  {userLocation && selectedListing.location && (
-                    <span style={{ fontSize: "13px", color: "#6b7280" }}>
-                      📍 {getDistance(userLocation.lat, userLocation.lng, selectedListing.location.lat, selectedListing.location.lng)} mi away
-                    </span>
-                  )}
-                </div>
-              </div>
-              {selectedListing.image && (
-                <div style={{ padding: "0 16px" }}>
-                  <img
-                    src={selectedListing.image}
-                    alt={selectedListing.title}
-                    style={{ width: "100%", height: "200px", objectFit: "cover", borderRadius: "12px" }}
-                  />
-                </div>
-              )}
-              <div style={{ padding: "16px 24px 24px 24px" }}>
-                <p style={{ fontSize: "15px", color: "#374151", lineHeight: "1.6", marginBottom: "16px" }}>
-                  {selectedListing.description}
-                </p>
-                {selectedListing.availability && (
-                  <p style={{ fontSize: "14px", color: "#6b7280", marginBottom: "16px" }}>
-                    🕐 <strong>Availability:</strong> {selectedListing.availability}
-                  </p>
-                )}
-                {selectedListing.company && (
-                  <p style={{ fontSize: "14px", color: "#6b7280", marginBottom: "16px" }}>
-                    🏢 <strong>Company:</strong> {selectedListing.company}
-                  </p>
-                )}
-                <hr style={{ border: "none", borderTop: "1px solid #eee", margin: "16px 0" }} />
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                    <div style={{
-                      width: "40px", height: "40px", borderRadius: "50%",
-                      background: "#0B1F44", display: "flex", alignItems: "center",
-                      justifyContent: "center", color: "white", fontSize: "14px", fontWeight: "600"
-                    }}>
-                      {selectedListing.createdBy ? selectedListing.createdBy.toString().slice(0,2).toUpperCase() : "?"}
-                    </div>
-                    <span style={{ fontSize: "14px", color: "#374151" }}>
-                      Posted by <strong>{selectedListing.createdBy || "Anonymous"}</strong>
-                    </span>
-                  </div>
-                  <button style={{
-                    background: "#0B1F44", color: "white", border: "none",
-                    padding: "10px 20px", borderRadius: "999px", fontSize: "14px", cursor: "pointer"
-                  }}>
-                    Message
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
+
+      {selectedListing && (
+        <ListingModal listing={selectedListing} onClose={() => setSelectedListing(null)} />
+      )}
     </div>
   )
 }

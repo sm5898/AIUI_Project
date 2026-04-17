@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import ListingCard from "../components/Listingcard"
+import ListingModal from "../components/ListingModal"
 import Navbar from "../components/Navbar"
 import { useSearch } from "../context/SearchContext"
 import "../styles/listview.css"
@@ -9,6 +10,7 @@ export default function ListView() {
  const { filtered, query, setQuery, filter, setFilter } = useSearch()
  const navigate = useNavigate()
  const [searchOpen, setSearchOpen] = useState(false)
+ const [selectedListing, setSelectedListing] = useState(null)
 
  return (
   <div>
@@ -36,6 +38,15 @@ export default function ListView() {
     </div>
 
     <div className="lv-filters">
+     {(filter !== "all" || query) && (
+      <button
+       className="lv-clear-filters-btn"
+       onClick={() => { setFilter("all"); setQuery("") }}
+      >
+       × Clear
+      </button>
+     )}
+
      <button
       className={`lv-filter-btn${filter === "borrow" ? " lv-filter-borrow-active" : ""}`}
       onClick={() => setFilter(filter === "borrow" ? "all" : "borrow")}
@@ -76,9 +87,13 @@ export default function ListView() {
     </div>
    </div>
 
+   {selectedListing && (
+    <ListingModal listing={selectedListing} onClose={() => setSelectedListing(null)} />
+   )}
+
    <div className="grid-list">
     {filtered.map(item => (
-     <ListingCard key={item._id} listing={item} />
+     <ListingCard key={item._id} listing={item} onClick={() => setSelectedListing(item)} />
     ))}
     {filtered.length === 0 && (
      <p className="lv-empty">No listings match your search.</p>

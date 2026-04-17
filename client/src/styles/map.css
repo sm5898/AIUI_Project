@@ -20,6 +20,7 @@
  overflow: hidden;
  pointer-events: auto;
  animation: hover-pop 0.15s ease;
+ cursor: pointer;
 }
 
 @keyframes hover-pop {
@@ -98,6 +99,11 @@
  color: #888;
  margin: 0;
  text-align: center;
+ transition: color 0.15s;
+}
+
+.map-hover-card:hover .map-hover-cta {
+ color: #0B1F44;
 }
 
 .map-wrapper {
@@ -218,6 +224,22 @@
  background: #4A1A0A;
  border-color: #4A1A0A;
  color: white;
+}
+
+.map-clear-filters-btn {
+ background: none;
+ border: none;
+ color: #6b7280;
+ font-size: 13px;
+ font-weight: 500;
+ cursor: pointer;
+ padding: 0 4px;
+ white-space: nowrap;
+ transition: color 0.15s;
+}
+
+.map-clear-filters-btn:hover {
+ color: #111;
 }
 
 /* ── View toggle ──────────────────────────────── */

@@ -1,173 +1,203 @@
-html, body {
-  overflow: hidden;
-  height: 100%;
-}
+/* ── Login page — navy/white split ──────────────── */
 
-/* ── Background ────────────────────────────────── */
-
-.landing-bg {
-  min-height: 100vh;
+.ln-root {
+  height: 100vh;
   width: 100vw;
-  position: relative;
-  background: url("/Images/Landing.png") center center/cover no-repeat;
-  overflow: hidden;
-}
-
-/* ── Two-column hero layout ────────────────────── */
-
-.landing-hero {
   display: grid;
-  grid-template-columns: 1fr 400px;
-  align-items: center;
-  padding: 80px;
-  min-height: 80vh;
-}
-
-.landing-left {
-  z-index: 1;
-}
-
-/* ── Brand card (bottom-left) ──────────────────── */
-
-.block-card {
-  background: white;
-  border-radius: 0 80px 0 0;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  z-index: 3;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  padding: 32px 0 18px 48px;
-  width: 45vw;
-  min-width: 700px;
-  max-width: 900px;
-  box-sizing: border-box;
-  height: 270px;
+  grid-template-columns: 1fr 1fr;
   overflow: hidden;
 }
 
-.block-card::after {
-  content: "";
-  position: absolute;
-  width: 260px;
-  height: 260px;
-  right: -130px;
-  bottom: -130px;
-  background: inherit;
-  border-radius: 50%;
-  z-index: -1;
-}
+/* ── Left — navy brand panel ────────────────────── */
 
-.landing-title {
-  font-family: 'Libre Franklin', Arial, sans-serif;
-  font-size: 128px;
-  font-weight: 800;
-  color: #00113A;
-  margin: 0;
-  line-height: 1.05;
-  letter-spacing: 0;
-}
-
-.landing-sub {
-  font-size: 18px;
-  font-weight: 700;
-  color: #0B1F44;
-  margin-bottom: 18px;
-}
-
-/* ── Login card (right side) ───────────────────── */
-
-.landing-login-card {
-  background: white;
-  padding: 40px 36px 32px 36px;
-  border-radius: 48px;
-  box-shadow: 0 10px 32px rgba(0,0,0,.10);
+.ln-left {
+  background: #0B1F44;
   display: flex;
   flex-direction: column;
-  min-width: 340px;
-  max-width: 340px;
-  margin-right: 80px;
-  margin-bottom: 40px;
-  z-index: 2;
+  justify-content: space-between;
+  padding: 56px 64px 48px;
+  position: relative;
+  overflow: hidden;
 }
 
-.login-header-row {
+/* subtle radial glow behind the pin */
+.ln-left::after {
+  content: '';
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(212,112,58,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ln-left-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+}
+
+.ln-eyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #D4703A;
+  margin: 0 0 20px;
+}
+
+.ln-title {
+  font-family: 'Libre Franklin', Arial, sans-serif;
+  font-size: clamp(72px, 9vw, 130px);
+  font-weight: 800;
+  color: white;
+  margin: 0 0 48px;
+  line-height: 0.88;
+  letter-spacing: -3px;
+}
+
+.ln-deco-pin {
+  opacity: 0.9;
+}
+
+.ln-back-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0;
+  text-align: left;
+  transition: color 0.2s;
+}
+.ln-back-link:hover { color: rgba(255,255,255,0.65); }
+
+/* ── Right — white form panel ───────────────────── */
+
+.ln-right {
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 56px;
+}
+
+.ln-form {
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ln-form-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
+  align-items: flex-start;
+  margin-bottom: 28px;
 }
 
-.login-title {
-  font-size: 38px;
+.ln-form-title {
+  font-family: 'Libre Franklin', Arial, sans-serif;
+  font-size: 36px;
   font-weight: 800;
   color: #0B1F44;
   margin: 0;
+  letter-spacing: -0.5px;
 }
 
-.new-user-link {
-  font-size: 14px;
-  color: #111827;
-  opacity: 0.7;
+.ln-signup-link {
+  font-size: 13px;
+  color: #D4703A;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.4;
+  flex-shrink: 0;
+  margin-left: 16px;
+  transition: opacity 0.2s;
 }
+.ln-signup-link:hover { opacity: 0.75; }
+.ln-signup-arrow { font-size: 16px; }
 
-.login-label {
-  font-size: 18px;
+.ln-label {
+  font-size: 14px;
   font-weight: 700;
-  margin-top: 18px;
-  margin-bottom: 6px;
   color: #0B1F44;
+  margin: 18px 0 6px;
   display: flex;
   align-items: center;
+  gap: 5px;
 }
 
-.arrow {
-  margin-left: 8px;
-  font-size: 18px;
-  color: #0B1F44;
-}
+.ln-arrow { color: #D4703A; }
 
-.login-input {
+.ln-input {
   width: 100%;
   border: none;
-  border-bottom: 3px solid #e5e5e5;
-  padding: 10px 0 8px 0;
-  margin-bottom: 8px;
-  font-size: 18px;
+  border-bottom: 2px solid #e5e5e5;
+  padding: 10px 0 8px;
+  font-size: 16px;
+  font-weight: 600;
   background: transparent;
   outline: none;
   color: #111827;
-  font-weight: 600;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+.ln-input:focus { border-bottom-color: #D4703A; }
+
+.ln-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.login-btn {
+.ln-input-wrap .ln-input {
+  flex: 1;
+  padding-right: 32px;
+}
+
+.ln-eye-btn {
+  position: absolute;
+  right: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+.ln-eye-btn:hover { color: #D4703A; }
+
+.ln-error {
+  font-size: 13px;
+  color: #dc2626;
+  margin: 10px 0 0;
+}
+
+.ln-btn {
   background: #0B1F44;
   color: white;
   border: none;
-  padding: 12px 32px;
+  padding: 14px 36px;
   border-radius: 999px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
-  margin-top: 24px;
+  margin-top: 32px;
   align-self: flex-end;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.1s;
+  box-shadow: 0 4px 20px rgba(11,31,68,0.18);
 }
+.ln-btn:hover { background: #1a3460; transform: translateY(-1px); }
+.ln-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-.login-btn:hover {
-  background: #233a6c;
-}
-
-.login-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.login-error {
-  font-size: 13px;
-  color: #dc2626;
-  margin: 4px 0 0;
-}
