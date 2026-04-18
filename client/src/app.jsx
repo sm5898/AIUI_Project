@@ -31,6 +31,7 @@ return(
 <Route path="/list" element={<ListView/>}/>
 <Route path="/messages" element={<Messages/>}/>
 <Route path="/create" element={<CreatePost/>}/>
+<Route path="/edit/:id" element={<CreatePost />} />
 <Route path="/my-listings" element={<MyListings />} />
 <Route path="/profile" element={<Profile />} />
 <Route path="/onboarding" element={<Onboarding />} />
