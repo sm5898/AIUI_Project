@@ -1,6 +1,7 @@
 import React from "react";
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 import { SearchProvider } from "./context/SearchContext"
+import SavedListings from "./pages/SavedListings";
 
 import Landing from "./pages/Landing"
 import Signup from "./pages/Signup"
@@ -35,6 +36,7 @@ return(
 <Route path="/my-listings" element={<MyListings />} />
 <Route path="/profile" element={<Profile />} />
 <Route path="/onboarding" element={<Onboarding />} />
+<Route path="/saved" element={<SavedListings />} />
 
 </Routes>
 
