@@ -34,6 +34,7 @@ function TypeTag({ type }) {
   return <span className={`pf-tag pf-tag--${type}`}>{label}</span>;
 }
 
+
 export default function Profile() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -41,9 +42,13 @@ export default function Profile() {
 
   const [profile, setProfile] = useState(null);
   const [myListings, setMyListings] = useState([]);
+  const [activity, setActivity] = useState([]); // Track all activity
   const [stats, setStats] = useState({ listingCount: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [savedListings, setSavedListings] = useState([]);
+  const [savedError, setSavedError] = useState("");
+  const savedSectionRef = useRef(null);
 
   const [editing, setEditing] = useState(false);
   const [editForm, setEditForm] = useState({
@@ -56,13 +61,26 @@ export default function Profile() {
   const [saving, setSaving] = useState(false);
   const [editError, setEditError] = useState("");
 
+
   useEffect(() => {
     if (!token) {
       navigate("/login");
       return;
     }
     fetchProfile();
+    fetchSavedListings();
   }, []);
+
+  const fetchSavedListings = async () => {
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (!user?.id) return;
+      const response = await api.get(`/saved/${user.id}`);
+      setSavedListings(response.data);
+    } catch (err) {
+      setSavedError("Could not load saved listings.");
+    }
+  };
 
   const fetchProfile = async () => {
     try {
@@ -73,6 +91,13 @@ export default function Profile() {
       setProfile(res.data.user);
       setStats(res.data.stats);
       setMyListings(res.data.myListings);
+      // Build initial activity: all posts
+      setActivity(res.data.myListings.map(l => ({
+        _id: l._id,
+        title: l.title,
+        createdAt: l.createdAt,
+        type: 'posted',
+      })));
     } catch {
       setError("Could not load profile");
     } finally {
@@ -141,6 +166,29 @@ export default function Profile() {
     navigate(`/edit/${listingId}`);
   };
 
+  const handleDeleteListing = async (listingId) => {
+    if (!window.confirm("Are you sure you want to delete this listing?")) return;
+    try {
+      // Find the listing before removing
+      const listingToDelete = myListings.find((l) => l._id === listingId);
+      await api.delete(`/listings/${listingId}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setMyListings((prev) => prev.filter((l) => l._id !== listingId));
+      setStats((s) => ({ ...s, listingCount: s.listingCount - 1 }));
+      // Add a delete activity
+      if (listingToDelete) {
+        setActivity((prev) => [
+          { _id: `${listingId}-deleted-${Date.now()}`, title: listingToDelete.title, createdAt: new Date().toISOString(), type: 'deleted' },
+          ...prev // Keep all previous activities, including the original post
+        ]);
+      }
+    } catch (err) {
+      console.error('Delete error:', err?.response || err);
+      alert("Failed to delete listing: " + (err?.response?.data?.message || err.message || 'Unknown error'));
+    }
+  };
+
   if (loading) {
     return (
       <div className="pf-loading">
@@ -170,7 +218,17 @@ export default function Profile() {
       <Navbar />
 
       <div className="pf-page">
-        <h1 className="pf-page-title">My Profile</h1>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <h1 className="pf-page-title">My Profile</h1>
+          <button
+            type="button"
+            className="pf-view-saved-btn"
+            onClick={() => navigate("/profile/saved")}
+            style={{ fontSize: 16, padding: '8px 18px', borderRadius: 999, background: '#D4703A', color: 'white', border: 'none', fontWeight: 600, cursor: 'pointer' }}
+          >
+            View Saved
+          </button>
+        </div>
 
         <div className="pf-layout">
           <aside className="pf-sidebar">
@@ -354,15 +412,76 @@ export default function Profile() {
                     <div
                       key={listing._id}
                       className="pf-listing-card"
-                      onClick={() => handleListingClick(listing._id)}
+                      style={{ position: 'relative', cursor: 'pointer' }}
+                    >
+                      <div
+                        onClick={() => handleListingClick(listing._id)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            handleListingClick(listing._id);
+                          }
+                        }}
+                        role="button"
+                        tabIndex={0}
+                        style={{ outline: 'none' }}
+                      >
+                        {listing.image ? (
+                          <img
+                            src={getListingImageSrc(listing.image)}
+                            alt={listing.title}
+                            className="pf-listing-img"
+                            onError={(e) => {
+                              e.target.style.display = "none";
+                            }}
+                          />
+                        ) : (
+                          <div className="pf-listing-img pf-listing-img--empty">
+                            <PinIcon />
+                          </div>
+                        )}
+                        <TypeTag type={listing.type} />
+                        <div className="pf-listing-footer">
+                          <span className="pf-listing-title">{listing.title}</span>
+                          <span className="pf-listing-arrow">→</span>
+                        </div>
+                      </div>
+                      <button
+                        className="pf-listing-delete-btn"
+                        style={{ position: 'absolute', top: 8, right: 8, background: '#e74c3c', color: 'white', border: 'none', borderRadius: 4, padding: '4px 10px', cursor: 'pointer', fontWeight: 600 }}
+                        onClick={(e) => { e.stopPropagation(); handleDeleteListing(listing._id); }}
+                        title="Delete listing"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+
+            {/* --- Saved Listings Section --- */}
+            <section className="pf-section" ref={savedSectionRef}>
+              <h2 className="pf-section-title">Saved Listings</h2>
+              {savedError && <p style={{ color: 'red' }}>{savedError}</p>}
+              {savedListings.length === 0 ? (
+                <div className="pf-empty">
+                  <p>No saved listings yet.</p>
+                </div>
+              ) : (
+                <div className="pf-listings-grid">
+                  {savedListings.map((listing) => (
+                    <div
+                      key={listing._id}
+                      className="pf-listing-card"
+                      tabIndex={0}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => navigate("/explore", { state: { highlightId: listing._id } })}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
-                          handleListingClick(listing._id);
+                          navigate("/explore", { state: { highlightId: listing._id } });
                         }
                       }}
                       role="button"
-                      tabIndex={0}
-                      style={{ cursor: "pointer" }}
                     >
                       {listing.image ? (
                         <img
@@ -378,9 +497,7 @@ export default function Profile() {
                           <PinIcon />
                         </div>
                       )}
-
                       <TypeTag type={listing.type} />
-
                       <div className="pf-listing-footer">
                         <span className="pf-listing-title">{listing.title}</span>
                         <span className="pf-listing-arrow">→</span>
@@ -391,25 +508,26 @@ export default function Profile() {
               )}
             </section>
 
+            {/* --- Recent Activity Section --- */}
             <section className="pf-section">
               <h2 className="pf-section-title">Recent Activity</h2>
               <div className="pf-activity-card">
-                {myListings.length === 0 ? (
+                {activity.length === 0 ? (
                   <p className="pf-activity-empty">No activity yet.</p>
                 ) : (
-                  myListings.map((listing, i) => (
+                  activity.slice(0, 5).map((act, i) => (
                     <div
-                      key={listing._id}
+                      key={act._id}
                       className={`pf-activity-row${
-                        i < myListings.length - 1 ? " pf-activity-row--border" : ""
+                        i < Math.min(activity.length, 5) - 1 ? " pf-activity-row--border" : ""
                       }`}
                     >
                       <div className="pf-activity-avatar">{initials}</div>
                       <p className="pf-activity-text">
-                        <strong>You</strong> posted <strong>{listing.title}</strong>
+                        <strong>You</strong> {act.type === 'deleted' ? 'deleted listing' : 'posted'} <strong>{act.title}</strong>
                       </p>
                       <span className="pf-activity-time">
-                        {timeAgo(listing.createdAt)}
+                        {timeAgo(act.createdAt)}
                       </span>
                     </div>
                   ))

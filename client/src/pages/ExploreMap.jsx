@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, ZoomControl } from "react-leaflet";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import Navbar from "../components/Navbar";
@@ -35,6 +35,17 @@ export default function ExploreMap() {
   const [selectedListing, setSelectedListing] = useState(null);
   const hoverTimeout = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  // Highlight listing if navigated from profile saved listings
+  useEffect(() => {
+    if (location.state && location.state.highlightId) {
+      const found = filtered.find((item) => item._id === location.state.highlightId);
+      if (found) {
+        setSelectedListing(found);
+      }
+    }
+    // eslint-disable-next-line
+  }, [location.state, filtered]);
 
   const clearHover = () => {
     hoverTimeout.current = setTimeout(() => setHovered(null), 150);
@@ -51,6 +62,8 @@ export default function ExploreMap() {
   return (
     <div className="map-page">
       <Navbar active="explore" />
+
+
 
       <div className="map-wrapper">
         <MapContainer

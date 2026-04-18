@@ -357,7 +357,7 @@
 
 .pf-listing-img {
   width: 100%;
-  height: 140px;
+  height: 170px; /* Increased height for more space */
   object-fit: cover;
   display: block;
 }
@@ -370,14 +370,14 @@
 }
 
 .pf-tag {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 11px;
+  margin-bottom: 2px;
+  font-size: 12px;
   font-weight: 700;
   padding: 4px 10px;
   border-radius: 999px;
   text-transform: capitalize;
+  position: static;
+  display: inline-block;
 }
 .pf-tag--lend    { background: #D4703A; color: white; }
 .pf-tag--borrow  { background: #0B1F44; color: white; }
@@ -385,15 +385,17 @@
 
 .pf-listing-footer {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 14px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 10px 14px 14px 14px;
 }
 
 .pf-listing-title {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   color: #0B1F44;
+  margin-top: 2px;
 }
 
 .pf-listing-arrow {

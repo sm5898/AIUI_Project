@@ -205,7 +205,7 @@ export default function ListingModal({ listing, onClose }) {
             {isSaved ? "❤️ Unsave" : "🤍 Save"}
           </button>
 
-          <button className="lm-msg-btn" onClick={() => navigate("/saved")}>
+          <button className="lm-msg-btn" onClick={() => navigate("/profile/saved")}> 
             View Saved
           </button>
 

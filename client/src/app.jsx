@@ -13,6 +13,7 @@ import MyListings from "./pages/MyListings";
 import Welcome from "./pages/Welcome";
 import Profile from "./pages/Profile";
 import Onboarding from "./pages/Onboarding";
+import SavedListings from "./pages/SavedListings";
 
 export default function App(){
 
@@ -34,6 +35,7 @@ return(
 <Route path="/edit/:id" element={<CreatePost />} />
 <Route path="/my-listings" element={<MyListings />} />
 <Route path="/profile" element={<Profile />} />
+<Route path="/profile/saved" element={<SavedListings />} />
 <Route path="/onboarding" element={<Onboarding />} />
 
 </Routes>
