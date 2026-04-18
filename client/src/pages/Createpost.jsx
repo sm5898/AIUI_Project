@@ -189,7 +189,10 @@ export default function CreatePost() {
       setShowSuccess(true);
       setTimeout(() => {
         setShowSuccess(false);
-      }, 2500);
+        if (!isEditMode) {
+          navigate("/profile");
+        }
+      }, 1200);
 
       if (isEditMode) {
         navigate("/explore");

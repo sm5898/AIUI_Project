@@ -34,6 +34,7 @@ function TypeTag({ type }) {
   return <span className={`pf-tag pf-tag--${type}`}>{label}</span>;
 }
 
+
 export default function Profile() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -41,6 +42,7 @@ export default function Profile() {
 
   const [profile, setProfile] = useState(null);
   const [myListings, setMyListings] = useState([]);
+  const [activity, setActivity] = useState([]); // Track all activity
   const [stats, setStats] = useState({ listingCount: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -89,6 +91,13 @@ export default function Profile() {
       setProfile(res.data.user);
       setStats(res.data.stats);
       setMyListings(res.data.myListings);
+      // Build initial activity: all posts
+      setActivity(res.data.myListings.map(l => ({
+        _id: l._id,
+        title: l.title,
+        createdAt: l.createdAt,
+        type: 'posted',
+      })));
     } catch {
       setError("Could not load profile");
     } finally {
@@ -160,11 +169,20 @@ export default function Profile() {
   const handleDeleteListing = async (listingId) => {
     if (!window.confirm("Are you sure you want to delete this listing?")) return;
     try {
+      // Find the listing before removing
+      const listingToDelete = myListings.find((l) => l._id === listingId);
       await api.delete(`/listings/${listingId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setMyListings((prev) => prev.filter((l) => l._id !== listingId));
       setStats((s) => ({ ...s, listingCount: s.listingCount - 1 }));
+      // Add a delete activity
+      if (listingToDelete) {
+        setActivity((prev) => [
+          { _id: `${listingId}-deleted-${Date.now()}`, title: listingToDelete.title, createdAt: new Date().toISOString(), type: 'deleted' },
+          ...prev // Keep all previous activities, including the original post
+        ]);
+      }
     } catch (err) {
       console.error('Delete error:', err?.response || err);
       alert("Failed to delete listing: " + (err?.response?.data?.message || err.message || 'Unknown error'));
@@ -494,22 +512,22 @@ export default function Profile() {
             <section className="pf-section">
               <h2 className="pf-section-title">Recent Activity</h2>
               <div className="pf-activity-card">
-                {myListings.length === 0 ? (
+                {activity.length === 0 ? (
                   <p className="pf-activity-empty">No activity yet.</p>
                 ) : (
-                  myListings.map((listing, i) => (
+                  activity.slice(0, 5).map((act, i) => (
                     <div
-                      key={listing._id}
+                      key={act._id}
                       className={`pf-activity-row${
-                        i < myListings.length - 1 ? " pf-activity-row--border" : ""
+                        i < Math.min(activity.length, 5) - 1 ? " pf-activity-row--border" : ""
                       }`}
                     >
                       <div className="pf-activity-avatar">{initials}</div>
                       <p className="pf-activity-text">
-                        <strong>You</strong> posted <strong>{listing.title}</strong>
+                        <strong>You</strong> {act.type === 'deleted' ? 'deleted listing' : 'posted'} <strong>{act.title}</strong>
                       </p>
                       <span className="pf-activity-time">
-                        {timeAgo(listing.createdAt)}
+                        {timeAgo(act.createdAt)}
                       </span>
                     </div>
                   ))
