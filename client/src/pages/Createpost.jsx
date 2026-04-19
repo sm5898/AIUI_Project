@@ -66,6 +66,10 @@ export default function CreatePost() {
   const [showToast, setShowToast] = useState(false);
   const fileInputRef = useRef();
 
+  const [aiInput, setAiInput] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
+  const [showAiBox, setShowAiBox] = useState(false);
+
   useEffect(() => {
     if (isEditMode) return;
 
@@ -129,6 +133,29 @@ export default function CreatePost() {
       ? `${startDate.toLocaleDateString()} – ${endDate.toLocaleDateString()}`
       : startDate.toLocaleDateString()
     : "Available Anytime";
+
+  const handleAIGenerate = async () => {
+    if (!aiInput.trim()) return;
+    setAiLoading(true);
+    try {
+      const res = await fetch('http://localhost:5001/api/ai/generate-listing', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userInput: aiInput }),
+      });
+      const data = await res.json();
+      console.log('AI generate response:', data);
+      if (data.title) setTitle(data.title);
+      if (data.description) setDescription(data.description);
+      setShowAiBox(false);
+      setAiInput('');
+    } catch (err) {
+      console.error('AI generate error:', err);
+      alert('AI generation failed: ' + (err?.message || 'Unknown error'));
+    } finally {
+      setAiLoading(false);
+    }
+  };
 
   const borderColor = postType === "lend" ? BORROW_COLOR : SERVICE_COLOR;
 
@@ -255,6 +282,55 @@ export default function CreatePost() {
                 </button>
               </div>
             </div>
+
+            <div style={{ marginBottom: "16px" }}>
+  <button
+    type="button"
+    onClick={() => setShowAiBox(!showAiBox)}
+    style={{
+      background: "#c0622f", color: "#fff", border: "none",
+      borderRadius: "20px", padding: "8px 16px", fontSize: "13px",
+      cursor: "pointer", display: "flex", alignItems: "center", gap: "6px"
+    }}
+  >
+    ✨ Write with AI
+  </button>
+
+  {showAiBox && (
+    <div style={{
+      marginTop: "10px", padding: "14px", background: "#fff8f5",
+      border: "1px solid #c0622f", borderRadius: "12px"
+    }}>
+      <p style={{ fontSize: "13px", color: "#555", marginBottom: "8px" }}>
+        Describe what you're lending or offering in plain words:
+      </p>
+      <textarea
+        value={aiInput}
+        onChange={(e) => setAiInput(e.target.value)}
+        placeholder='e.g. "I have a power drill, Black+Decker, good condition"'
+        rows={3}
+        style={{
+          width: "100%", padding: "10px", borderRadius: "8px",
+          border: "1px solid #ddd", fontSize: "13px", resize: "none",
+          boxSizing: "border-box"
+        }}
+      />
+      <button
+        type="button"
+        onClick={handleAIGenerate}
+        disabled={aiLoading || !aiInput.trim()}
+        style={{
+          marginTop: "8px", background: "#0f2044", color: "#fff",
+          border: "none", borderRadius: "20px", padding: "8px 18px",
+          fontSize: "13px", cursor: "pointer",
+          opacity: aiLoading || !aiInput.trim() ? 0.5 : 1
+        }}
+      >
+        {aiLoading ? "Generating..." : "Generate Title & Description"}
+      </button>
+    </div>
+  )}
+</div>
 
             <label className="cp-label">Title:</label>
             <input

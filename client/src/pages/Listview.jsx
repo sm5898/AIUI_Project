@@ -11,13 +11,38 @@ export default function ListView() {
  const navigate = useNavigate()
  const [searchOpen, setSearchOpen] = useState(false)
  const [selectedListing, setSelectedListing] = useState(null)
+ const [aiQuery, setAiQuery] = useState("");
+ const [aiLoading, setAiLoading] = useState(false);
+ const [showAiSearch, setShowAiSearch] = useState(false);
+
+ const handleSmartSearch = async () => {
+    if (!aiQuery.trim()) return;
+    setAiLoading(true);
+    try {
+        const res = await fetch('http://localhost:5001/api/ai/smart-search', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query: aiQuery, listings: filtered }),
+        });
+        const data = await res.json();
+        if (data.ids && data.ids.length > 0) {
+            setQuery(data.ids[0]);
+        }
+    } catch {
+        alert('Smart search failed.');
+    } finally {
+        setAiLoading(false);
+    }
+ };
 
  return (
   <div>
    <Navbar active="explore" />
 
-   <div className="lv-toolbar">
-    <div className="lv-search-overlay">
+     <div className="lv-toolbar">
+        {/* AI search button/input moved below filters */}
+
+        <div className="lv-search-overlay">
      {searchOpen ? (
       <input
        autoFocus
@@ -86,6 +111,33 @@ export default function ListView() {
      </div>
     </div>
    </div>
+     {/* AI Search UI - moved below filters so it doesn't replace the main search icon */}
+     {showAiSearch && (
+        <div style={{ display: "flex", gap: "8px", marginTop: "12px" }}>
+            <input
+                value={aiQuery}
+                onChange={(e) => setAiQuery(e.target.value)}
+                placeholder='e.g. "something to hang shelves this weekend"'
+                onKeyDown={(e) => e.key === "Enter" && handleSmartSearch()}
+                style={{
+                    flex: 1, padding: "10px 14px", borderRadius: "24px",
+                    border: "1px solid #c0622f", fontSize: "14px", outline: "none"
+                }}
+            />
+            <button
+                onClick={handleSmartSearch}
+                disabled={aiLoading}
+                style={{
+                    background: "#0f2044", color: "#fff", border: "none",
+                    borderRadius: "24px", padding: "10px 18px",
+                    fontSize: "13px", cursor: "pointer",
+                    opacity: aiLoading ? 0.5 : 1
+                }}
+            >
+                {aiLoading ? "Searching..." : "Search"}
+            </button>
+        </div>
+     )}
 
    {selectedListing && (
     <ListingModal listing={selectedListing} onClose={() => setSelectedListing(null)} />
