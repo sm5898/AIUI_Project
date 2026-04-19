@@ -12,7 +12,7 @@ async function callGroq(prompt) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer REDACTED_GROQ_KEY",
+      "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
     },
     body: JSON.stringify({
       model: MODEL,
@@ -93,7 +93,7 @@ Keep replies short and conversational (2-3 sentences max).`;
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer REDACTED_GROQ_KEY",
+        "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
       },
       body: JSON.stringify({ model: MODEL, messages, max_tokens: 300 }),
     });
