@@ -66,7 +66,7 @@ export default function ExploreMap() {
             maxZoom={19}
           />
 
-          <ZoomControl position="bottomright" />
+          <ZoomControl position="bottomleft" />
 
           {mapListings.map((item) => (
             <Marker
