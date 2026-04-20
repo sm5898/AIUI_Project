@@ -206,7 +206,15 @@ export default function Messages() {
             <div className="msg-convo-list">
               {filtered.length === 0 ? (
                 <div className="msg-empty">
-                  <p>No conversations yet</p>
+                  <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#C4CADA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                  </svg>
+                  <span className="msg-empty-title">
+                    {search ? `No results for "${search}"` : "No conversations yet"}
+                  </span>
+                  {!search && (
+                    <span className="msg-empty-sub">Start by messaging someone from a listing</span>
+                  )}
                 </div>
               ) : (
                 filtered.map((c, i) => (
@@ -229,6 +237,16 @@ export default function Messages() {
           </div>
 
           <div className="msg-chat-panel">
+            {!active ? (
+              <div className="msg-no-convo-panel">
+                <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#C4CADA" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+                <span className="msg-no-convo-title">Your messages will appear here</span>
+                <span className="msg-no-convo-sub">Browse listings and reach out to a neighbor to get started</span>
+              </div>
+            ) : (
+              <>
             <div className="msg-chat-header">
               <div className="msg-header-avatar">{active?.initials}</div>
               <div style={{ flex: 1 }}>
@@ -285,9 +303,6 @@ export default function Messages() {
             </div>
 
             <div className="msg-input-bar">
-              <button className="msg-plus-btn" aria-label="Attach">
-                +
-              </button>
               <input
                 className="msg-text-input"
                 placeholder="Type a message..."
@@ -315,6 +330,8 @@ export default function Messages() {
                 </svg>
               </button>
             </div>
+            </>
+            )}
           </div>
         </div>
 
