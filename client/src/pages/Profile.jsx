@@ -48,6 +48,9 @@ export default function Profile() {
   const [showSavedModal, setShowSavedModal] = useState(false);
   const [savedSearch, setSavedSearch] = useState("");
   const [savedFilter, setSavedFilter] = useState("all");
+  const [showMyListingsModal, setShowMyListingsModal] = useState(false);
+  const [myListingsSearch, setMyListingsSearch] = useState("");
+  const [myListingsFilter, setMyListingsFilter] = useState("all");
   const [stats, setStats] = useState({ listingCount: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -344,13 +347,23 @@ export default function Profile() {
             <section className="pf-section pf-section--half">
               <div className="pf-section-header">
                 <h2 className="pf-section-title">My Listings</h2>
-                <button
-                  type="button"
-                  className="pf-view-all"
-                  onClick={() => navigate("/create")}
-                >
-                  + New listing
-                </button>
+                <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                  <button
+                    type="button"
+                    className="pf-view-all"
+                    onClick={() => setShowMyListingsModal(true)}
+                  >
+                    View all
+                  </button>
+                  <span style={{ color: "#E5E7EB", fontSize: "16px", lineHeight: 1 }}>|</span>
+                  <button
+                    type="button"
+                    className="pf-view-all"
+                    onClick={() => navigate("/create")}
+                  >
+                    + New listing
+                  </button>
+                </div>
               </div>
 
               {myListings.length === 0 ? (
@@ -365,44 +378,44 @@ export default function Profile() {
                   </button>
                 </div>
               ) : (
-                <div className="pf-listings-grid">
-                  {myListings.map((listing) => (
+                <div className="pf-saved-list">
+                  {myListings.slice(0, 6).map((listing) => (
                     <div
                       key={listing._id}
-                      className="pf-listing-card"
+                      className="pf-saved-row"
                       onClick={() => handleListingClick(listing._id)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          handleListingClick(listing._id);
-                        }
-                      }}
                       role="button"
                       tabIndex={0}
-                      style={{ cursor: "pointer" }}
+                      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleListingClick(listing._id); }}
                     >
-                      {listing.image ? (
-                        <img
-                          src={getListingImageSrc(listing.image)}
-                          alt={listing.title}
-                          className="pf-listing-img"
-                          onError={(e) => {
-                            e.target.style.display = "none";
-                          }}
-                        />
-                      ) : (
-                        <div className="pf-listing-img pf-listing-img--empty">
-                          <PinIcon />
-                        </div>
-                      )}
-
-                      <TypeTag type={listing.type} />
-
-                      <div className="pf-listing-footer">
-                        <span className="pf-listing-title">{listing.title}</span>
-                        <span className="pf-listing-arrow">→</span>
+                      <div className="pf-saved-row-thumb">
+                        {listing.image ? (
+                          <img
+                            src={getListingImageSrc(listing.image)}
+                            alt={listing.title}
+                            className="pf-saved-row-img"
+                            onError={(e) => { e.target.style.display = "none"; }}
+                          />
+                        ) : (
+                          <div className="pf-saved-row-img pf-saved-row-img--empty">
+                            <span className={`pf-saved-row-dot pf-saved-row-dot--${listing.type}`} />
+                          </div>
+                        )}
                       </div>
+                      <div className="pf-saved-row-info">
+                        <span className="pf-saved-row-title">{listing.title}</span>
+                        <span className={`pf-saved-row-tag pf-saved-row-tag--${listing.type === "lend" || listing.type === "borrow" ? "borrow" : "service"}`}>
+                          {listing.type === "lend" || listing.type === "borrow" ? "Borrow" : "Service"}
+                        </span>
+                      </div>
+                      <span className="pf-saved-row-arrow">→</span>
                     </div>
                   ))}
+                  {myListings.length > 6 && (
+                    <button className="pf-saved-more" onClick={() => navigate("/my-listings")}>
+                      +{myListings.length - 6} more
+                    </button>
+                  )}
                 </div>
               )}
             </section>
@@ -499,6 +512,54 @@ export default function Profile() {
       {selectedListing && (
         <ListingModal listing={selectedListing} onClose={() => setSelectedListing(null)} />
       )}
+
+      {showMyListingsModal && (() => {
+        const filtered = myListings.filter(l => {
+          const matchesFilter = myListingsFilter === "all" || l.type === myListingsFilter || (myListingsFilter === "borrow" && l.type === "lend");
+          const matchesSearch = !myListingsSearch || l.title?.toLowerCase().includes(myListingsSearch.toLowerCase()) || l.description?.toLowerCase().includes(myListingsSearch.toLowerCase());
+          return matchesFilter && matchesSearch;
+        });
+        return (
+          <div className="pf-saved-overlay" onClick={() => setShowMyListingsModal(false)}>
+            <div className="pf-saved-drawer" onClick={e => e.stopPropagation()}>
+              <div className="pf-saved-drawer-header">
+                <h2 className="pf-saved-drawer-title">My Listings</h2>
+                <button className="pf-saved-drawer-close" onClick={() => setShowMyListingsModal(false)}>✕</button>
+              </div>
+
+              <div className="pf-saved-drawer-toolbar">
+                <input
+                  className="lv-search-input"
+                  placeholder="Search my listings..."
+                  value={myListingsSearch}
+                  onChange={e => setMyListingsSearch(e.target.value)}
+                />
+                <div className="lv-filters">
+                  {(myListingsFilter !== "all" || myListingsSearch) && (
+                    <button className="lv-clear-filters-btn" onClick={() => { setMyListingsFilter("all"); setMyListingsSearch(""); }}>× Clear</button>
+                  )}
+                  <button className={`lv-filter-btn${myListingsFilter === "borrow" ? " lv-filter-borrow-active" : ""}`} onClick={() => setMyListingsFilter(myListingsFilter === "borrow" ? "all" : "borrow")}>Borrow</button>
+                  <button className={`lv-filter-btn${myListingsFilter === "service" ? " lv-filter-service-active" : ""}`} onClick={() => setMyListingsFilter(myListingsFilter === "service" ? "all" : "service")}>Service</button>
+                </div>
+              </div>
+
+              <div className="grid-list">
+                {filtered.length === 0 ? (
+                  <p className="lv-empty">No listings match your search.</p>
+                ) : (
+                  filtered.map(item => (
+                    <ListingCard
+                      key={item._id}
+                      listing={item}
+                      onClick={() => { setShowMyListingsModal(false); handleListingClick(item._id); }}
+                    />
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      })()}
 
       {showSavedModal && (() => {
         const filtered = savedListings.filter(l => {

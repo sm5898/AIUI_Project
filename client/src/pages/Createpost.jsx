@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import api from "../api/api";
@@ -39,7 +39,14 @@ function MapClickHandler({ onSelect }) {
       });
     },
   });
+  return null;
+}
 
+function FlyTo({ coords }) {
+  const map = useMap();
+  useEffect(() => {
+    if (coords) map.flyTo([coords.lat, coords.lng], 15, { duration: 1 });
+  }, [coords]);
   return null;
 }
 
@@ -69,6 +76,20 @@ export default function CreatePost() {
   const [aiInput, setAiInput] = useState("");
   const [aiLoading, setAiLoading] = useState(false);
   const [showAiBox, setShowAiBox] = useState(false);
+  const [locating, setLocating] = useState(false);
+
+  const useMyLocation = () => {
+    if (!navigator.geolocation) return;
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+        setLocationStatus("ready");
+        setLocating(false);
+      },
+      () => setLocating(false)
+    );
+  };
 
   useEffect(() => {
     if (isEditMode) return;
@@ -405,6 +426,7 @@ export default function CreatePost() {
             <label className="cp-label">Choose Location on Map:</label>
             <div
               style={{
+                position: "relative",
                 height: "260px",
                 borderRadius: "20px",
                 overflow: "hidden",
@@ -412,6 +434,19 @@ export default function CreatePost() {
                 border: "1px solid #E5E7EB",
               }}
             >
+              <button
+                type="button"
+                onClick={useMyLocation}
+                disabled={locating}
+                className="cp-locate-btn"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+                  <circle cx="12" cy="12" r="8" />
+                </svg>
+                {locating ? "Locating…" : "Use my location"}
+              </button>
               <MapContainer
                 center={
                   location
@@ -426,6 +461,7 @@ export default function CreatePost() {
                   setLocation(coords);
                   setLocationStatus("ready");
                 }} />
+                <FlyTo coords={location} />
 
                 <TileLayer
                   url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"

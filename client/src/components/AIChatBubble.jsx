@@ -167,15 +167,27 @@ export default function AIChatBubble() {
       <button
         onClick={() => setOpen(!open)}
         style={{
-          width: "56px", height: "56px", borderRadius: "50%",
-          background: "#c0622f", border: "none", cursor: "pointer",
-          boxShadow: "0 4px 16px rgba(192,98,47,0.4)",
+          width: "72px", height: "72px", borderRadius: "50%",
+          background: "#0B1F44", border: "none", cursor: "pointer",
+          boxShadow: "0 6px 24px rgba(11,31,68,0.4)",
           display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: "24px", transition: "transform 0.2s",
-          transform: open ? "rotate(90deg)" : "rotate(0deg)"
+          transition: "transform 0.15s, box-shadow 0.15s",
         }}
+        onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.08)"; e.currentTarget.style.boxShadow = "0 8px 28px rgba(11,31,68,0.5)"; }}
+        onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "0 6px 24px rgba(11,31,68,0.4)"; }}
       >
-        {open ? "×" : "🤖"}
+        {open ? (
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 4L16 16M16 4L4 16" stroke="white" strokeWidth="2.3" strokeLinecap="round"/>
+          </svg>
+        ) : (
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <path d="M5 5C3.34 5 2 6.34 2 8V20C2 21.66 3.34 23 5 23H8.5V28.5L15.5 23H27C28.66 23 30 21.66 30 20V8C30 6.34 28.66 5 27 5H5Z" fill="white" fillOpacity="0.95"/>
+            <circle cx="11" cy="14" r="2" fill="#0B1F44"/>
+            <circle cx="16" cy="14" r="2" fill="#0B1F44"/>
+            <circle cx="21" cy="14" r="2" fill="#0B1F44"/>
+          </svg>
+        )}
       </button>
     </div>
   );
