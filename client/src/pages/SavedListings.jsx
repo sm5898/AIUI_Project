@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import ListingCard from "../components/Listingcard";
 import api from "../api/api";
+import "../styles/global.css";
 
 export default function SavedListings() {
   const [savedListings, setSavedListings] = useState([]);
@@ -44,35 +45,27 @@ export default function SavedListings() {
   };
 
   return (
-    <div>
+    <div className="page-root">
       <Navbar active="saved" />
 
-      <div style={{ padding: "40px 100px" }}>
-        <h1 style={{ marginBottom: "10px" }}>Saved Listings</h1>
-        <p style={{ marginBottom: "30px", color: "#6B7280" }}>
-          Listings you’ve saved
-        </p>
+      <div className="page-content">
+        <h1 className="page-title">Saved Listings</h1>
+        <p className="page-subtitle">Listings you’ve saved</p>
 
-        {error && <p>{error}</p>}
-        {message && <p style={{ fontWeight: 600 }}>{message}</p>}
+        {error && <p className="page-error">{error}</p>}
+        {message && <p className="page-message">{message}</p>}
 
         {savedListings.length === 0 ? (
           <p>No saved listings yet.</p>
         ) : (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-              gap: "24px",
-            }}
-          >
+          <div className="listings-grid">
             {savedListings.map((listing) => (
-                <ListingCard
-                    key={listing._id}
-                    listing={listing}
-                    isSaved={true}
-                    onToggleSave={handleUnsave}
-                />
+              <ListingCard
+                key={listing._id}
+                listing={listing}
+                isSaved={true}
+                onToggleSave={handleUnsave}
+              />
             ))}
           </div>
         )}

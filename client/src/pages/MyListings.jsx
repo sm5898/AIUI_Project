@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import { useSearch } from "../context/SearchContext";
+import "../styles/global.css";
 
 export default function MyListings() {
   const { listings } = useSearch();
@@ -16,11 +17,11 @@ export default function MyListings() {
   });
 
   return (
-    <div>
+    <div className="page-root">
       <Navbar active="my-listings" />
 
-      <div style={{ padding: "40px 100px" }}>
-        <h1>My Listings</h1>
+      <div className="page-content">
+        <h1 className="page-title">My Listings</h1>
 
         <p>
           Logged in user: <strong>{user ? user.firstName : "None"}</strong>
@@ -41,16 +42,7 @@ export default function MyListings() {
         ) : (
           <div>
             {myListings.map((listing) => (
-              <div
-                key={listing._id}
-                style={{
-                  border: "1px solid #ddd",
-                  borderRadius: "12px",
-                  padding: "16px",
-                  marginBottom: "16px",
-                  background: "white",
-                }}
-              >
+              <div key={listing._id} className="simple-listing-card">
                 <h3>{listing.title}</h3>
                 <p>{listing.description}</p>
                 <p>

@@ -138,3 +138,38 @@
  text-align: center;
  width: 100%;
 }
+
+/* ── AI smart search bar ─────────────────────── */
+
+.lv-ai-search-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.lv-ai-input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 24px;
+  border: 1px solid #D4703A;
+  font-size: 14px;
+  outline: none;
+  font-family: inherit;
+}
+
+.lv-ai-btn {
+  background: #0B1F44;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 10px 18px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.15s;
+}
+
+.lv-ai-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

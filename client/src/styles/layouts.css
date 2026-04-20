@@ -339,3 +339,41 @@
 .msg-send-btn:hover {
  background: #162f66 !important;
 }
+
+/* ── Chat header info ────────────────────────── */
+
+.msg-header-info {
+  flex: 1;
+}
+
+.msg-header-listing {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 2px;
+}
+
+/* ── Delete convo button ─────────────────────── */
+
+.msg-delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.15s;
+}
+
+.msg-delete-btn:hover {
+  color: #EF4444;
+}
+
+/* ── Error text ──────────────────────────────── */
+
+.msg-error {
+  margin-top: 16px;
+  color: #b91c1c;
+  font-size: 14px;
+}

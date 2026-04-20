@@ -249,10 +249,10 @@ export default function Messages() {
               <>
             <div className="msg-chat-header">
               <div className="msg-header-avatar">{active?.initials}</div>
-              <div style={{ flex: 1 }}>
+              <div className="msg-header-info">
                 <span className="msg-header-name">{active?.name}</span>
                 {active?.listingTitle && (
-                  <div style={{ fontSize: "13px", color: "#6B7280", marginTop: "4px" }}>
+                  <div className="msg-header-listing">
                     Re: {active.listingTitle}
                   </div>
                 )}
@@ -261,19 +261,7 @@ export default function Messages() {
                 <button
                   onClick={() => deleteConversation(activeId)}
                   title="Delete conversation"
-                  style={{
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    padding: "6px",
-                    borderRadius: "8px",
-                    display: "flex",
-                    alignItems: "center",
-                    color: "#9CA3AF",
-                    transition: "color 0.15s",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "#EF4444")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "#9CA3AF")}
+                  className="msg-delete-btn"
                 >
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="3 6 5 6 21 6" />
@@ -335,7 +323,7 @@ export default function Messages() {
           </div>
         </div>
 
-        {error && <p style={{ marginTop: "16px", color: "#b91c1c" }}>{error}</p>}
+        {error && <p className="msg-error">{error}</p>}
       </div>
     </div>
   );

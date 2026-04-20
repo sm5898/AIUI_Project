@@ -144,3 +144,20 @@
   background: #eee;
   margin: 4px 0;
 }
+
+/* ── Right section ───────────────────────────── */
+
+.nb-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nb-signup-link {
+  cursor: pointer;
+  font-size: 14px;
+  background: none;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+}

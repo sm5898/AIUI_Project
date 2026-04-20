@@ -187,3 +187,21 @@
 .lm-msg-btn:hover {
   background: #162f66;
 }
+
+/* ── Actions row ─────────────────────────────── */
+
+.lm-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ── Save feedback message ───────────────────── */
+
+.lm-save-message {
+  margin-top: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #0B1F44;
+}

@@ -113,26 +113,18 @@ export default function ListView() {
    </div>
      {/* AI Search UI - moved below filters so it doesn't replace the main search icon */}
      {showAiSearch && (
-        <div style={{ display: "flex", gap: "8px", marginTop: "12px" }}>
+        <div className="lv-ai-search-row">
             <input
                 value={aiQuery}
                 onChange={(e) => setAiQuery(e.target.value)}
                 placeholder='e.g. "something to hang shelves this weekend"'
                 onKeyDown={(e) => e.key === "Enter" && handleSmartSearch()}
-                style={{
-                    flex: 1, padding: "10px 14px", borderRadius: "24px",
-                    border: "1px solid #c0622f", fontSize: "14px", outline: "none"
-                }}
+                className="lv-ai-input"
             />
             <button
                 onClick={handleSmartSearch}
                 disabled={aiLoading}
-                style={{
-                    background: "#0f2044", color: "#fff", border: "none",
-                    borderRadius: "24px", padding: "10px 18px",
-                    fontSize: "13px", cursor: "pointer",
-                    opacity: aiLoading ? 0.5 : 1
-                }}
+                className="lv-ai-btn"
             >
                 {aiLoading ? "Searching..." : "Search"}
             </button>

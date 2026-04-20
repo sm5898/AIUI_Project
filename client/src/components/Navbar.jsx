@@ -74,13 +74,12 @@ export default function Navbar({ active, locked }) {
         </span>
       </div>
 
-      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+      <div className="nb-right">
         {user ? (
           <div className="nb-avatar-wrap" ref={dropdownRef}>
             <div
               className="avatar"
               onClick={() => setDropdownOpen(o => !o)}
-              style={{ cursor: "pointer" }}
             >
               {getInitials()}
             </div>
@@ -99,7 +98,7 @@ export default function Navbar({ active, locked }) {
         ) : (
           <>
             <span
-              style={{ cursor: "pointer", fontSize: "14px" }}
+              className="nb-signup-link"
               onClick={() => go("/signup")}
             >
               Sign Up

@@ -214,7 +214,7 @@ export default function Profile() {
                     ref={fileInputRef}
                     type="file"
                     accept="image/*"
-                    style={{ display: "none" }}
+                    className="pf-hidden-input"
                     onChange={handlePhotoFile}
                   />
                 </div>
@@ -347,7 +347,7 @@ export default function Profile() {
             <section className="pf-section pf-section--half">
               <div className="pf-section-header">
                 <h2 className="pf-section-title">My Listings</h2>
-                <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                <div className="pf-section-header-actions">
                   <button
                     type="button"
                     className="pf-view-all"
@@ -355,7 +355,7 @@ export default function Profile() {
                   >
                     View all
                   </button>
-                  <span style={{ color: "#E5E7EB", fontSize: "16px", lineHeight: 1 }}>|</span>
+                  <span className="pf-header-divider">|</span>
                   <button
                     type="button"
                     className="pf-view-all"

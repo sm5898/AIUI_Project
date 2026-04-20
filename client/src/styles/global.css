@@ -31,3 +31,80 @@ button{
 * {
   scroll-behavior: auto;
 }
+
+/* ── Simple page wrapper (Success, SavedListings, MyListings) ── */
+
+.page-root {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.page-content {
+  padding: 40px 80px;
+}
+
+.page-title {
+  font-family: 'Libre Franklin', Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #0B1F44;
+  margin: 0 0 10px;
+}
+
+.page-subtitle {
+  font-size: 15px;
+  color: #6B7280;
+  margin: 0 0 28px;
+}
+
+.page-message {
+  font-weight: 600;
+  font-size: 14px;
+  color: #0B1F44;
+}
+
+.page-error {
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+.page-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 93px);
+  gap: 16px;
+  text-align: center;
+}
+
+.page-center h2 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #0B1F44;
+  margin: 0;
+}
+
+.page-center p {
+  font-size: 16px;
+  color: #555;
+  margin: 0;
+}
+
+/* ── Listing card grid (reusable) ─────────────── */
+
+.listings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+/* ── Simple card (MyListings standalone) ──────── */
+
+.simple-listing-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background: white;
+}

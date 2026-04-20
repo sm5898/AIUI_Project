@@ -219,7 +219,7 @@ export default function ListingModal({ listing, onClose }) {
           </button>
         </div>
 
-        <div style={{ marginTop: "16px", display: "flex", gap: "12px", flexWrap: "wrap" }}>
+        <div className="lm-actions">
           <button className="lm-msg-btn" onClick={handleSaveToggle}>
             {isSaved ? "❤️ Unsave" : "🤍 Save"}
           </button>
@@ -242,7 +242,7 @@ export default function ListingModal({ listing, onClose }) {
         </div>
 
         {saveMessage && (
-          <p style={{ marginTop: "12px", fontWeight: 600 }}>{saveMessage}</p>
+          <p className="lm-save-message">{saveMessage}</p>
         )}
       </div>
     </div>

@@ -494,3 +494,95 @@
   color: #888;
   margin: 0;
 }
+
+/* ── AI write box ──────────────────────────────── */
+
+.cp-ai-toggle-btn {
+  background: #D4703A;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: inherit;
+  transition: opacity 0.15s;
+}
+
+.cp-ai-toggle-btn:hover {
+  opacity: 0.85;
+}
+
+.cp-ai-box {
+  margin-top: 10px;
+  padding: 14px;
+  background: #fff8f5;
+  border: 1px solid #D4703A;
+  border-radius: 12px;
+}
+
+.cp-ai-box-hint {
+  font-size: 13px;
+  color: #555;
+  margin: 0 0 8px;
+}
+
+.cp-ai-textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 13px;
+  resize: none;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.cp-ai-generate-btn {
+  margin-top: 8px;
+  background: #0B1F44;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.15s;
+}
+
+.cp-ai-generate-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Map wrapper ───────────────────────────────── */
+
+.cp-map-wrap {
+  position: relative;
+  height: 260px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  border: 1px solid #E5E7EB;
+}
+
+.cp-map-container {
+  height: 100%;
+  width: 100%;
+}
+
+/* ── AI section wrapper ────────────────────────── */
+
+.cp-ai-section {
+  margin-bottom: 16px;
+}
+
+/* ── Hidden file input ─────────────────────────── */
+
+.cp-hidden-input {
+  display: none;
+}

@@ -304,25 +304,18 @@ export default function CreatePost() {
               </div>
             </div>
 
-            <div style={{ marginBottom: "16px" }}>
+            <div className="cp-ai-section">
   <button
     type="button"
     onClick={() => setShowAiBox(!showAiBox)}
-    style={{
-      background: "#c0622f", color: "#fff", border: "none",
-      borderRadius: "20px", padding: "8px 16px", fontSize: "13px",
-      cursor: "pointer", display: "flex", alignItems: "center", gap: "6px"
-    }}
+    className="cp-ai-toggle-btn"
   >
     ✨ Write with AI
   </button>
 
   {showAiBox && (
-    <div style={{
-      marginTop: "10px", padding: "14px", background: "#fff8f5",
-      border: "1px solid #c0622f", borderRadius: "12px"
-    }}>
-      <p style={{ fontSize: "13px", color: "#555", marginBottom: "8px" }}>
+    <div className="cp-ai-box">
+      <p className="cp-ai-box-hint">
         Describe what you're lending or offering in plain words:
       </p>
       <textarea
@@ -330,22 +323,13 @@ export default function CreatePost() {
         onChange={(e) => setAiInput(e.target.value)}
         placeholder='e.g. "I have a power drill, Black+Decker, good condition"'
         rows={3}
-        style={{
-          width: "100%", padding: "10px", borderRadius: "8px",
-          border: "1px solid #ddd", fontSize: "13px", resize: "none",
-          boxSizing: "border-box"
-        }}
+        className="cp-ai-textarea"
       />
       <button
         type="button"
         onClick={handleAIGenerate}
         disabled={aiLoading || !aiInput.trim()}
-        style={{
-          marginTop: "8px", background: "#0f2044", color: "#fff",
-          border: "none", borderRadius: "20px", padding: "8px 18px",
-          fontSize: "13px", cursor: "pointer",
-          opacity: aiLoading || !aiInput.trim() ? 0.5 : 1
-        }}
+        className="cp-ai-generate-btn"
       >
         {aiLoading ? "Generating..." : "Generate Title & Description"}
       </button>
@@ -424,16 +408,7 @@ export default function CreatePost() {
             />
 
             <label className="cp-label">Choose Location on Map:</label>
-            <div
-              style={{
-                position: "relative",
-                height: "260px",
-                borderRadius: "20px",
-                overflow: "hidden",
-                marginBottom: "16px",
-                border: "1px solid #E5E7EB",
-              }}
-            >
+            <div className="cp-map-wrap">
               <button
                 type="button"
                 onClick={useMyLocation}
@@ -454,7 +429,7 @@ export default function CreatePost() {
                     : [40.7265, -73.9815]
                 }
                 zoom={14}
-                style={{ height: "100%", width: "100%" }}
+                className="cp-map-container"
                 scrollWheelZoom={true}
               >
                 <MapClickHandler onSelect={(coords) => {
@@ -514,7 +489,7 @@ export default function CreatePost() {
               <input
                 type="file"
                 ref={fileInputRef}
-                style={{ display: "none" }}
+                className="cp-hidden-input"
                 accept=".png,.jpeg,.jpg,.mp4,.mov"
                 onChange={(e) => handleFiles(e.target.files)}
               />

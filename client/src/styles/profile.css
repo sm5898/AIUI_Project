@@ -708,3 +708,24 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
+
+/* ── Section header actions ─────────────────────── */
+
+.pf-section-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pf-header-divider {
+  color: #E5E7EB;
+  font-size: 16px;
+  line-height: 1;
+  user-select: none;
+}
+
+/* ── Hidden file input ──────────────────────────── */
+
+.pf-hidden-input {
+  display: none;
+}
