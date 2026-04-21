@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import MessageBubble from "../components/Messagebubble";
@@ -15,7 +15,9 @@ export default function Messages() {
   const [conversations, setConversations] = useState([]);
   const [error, setError] = useState("");
 
-  const fetchConversations = async () => {
+  const chatBodyRef = useRef(null);
+
+  const fetchConversations = useCallback(async () => {
     try {
       if (!user?.id) return;
 
@@ -29,11 +31,20 @@ export default function Messages() {
       console.error("Error fetching conversations:", err);
       setError("Could not load conversations.");
     }
-  };
+  }, [user?.id, activeId]);
 
+  // Initial load
   useEffect(() => {
     fetchConversations();
   }, []);
+
+  // Poll every 3 seconds for live updates
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchConversations();
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [fetchConversations]);
 
   useEffect(() => {
     const createOrOpenThread = async () => {
@@ -121,6 +132,13 @@ export default function Messages() {
   }, [conversations, user?.id]);
 
   const active = formattedConversations.find((c) => c.id === activeId);
+
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    if (chatBodyRef.current) {
+      chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+    }
+  }, [active?.messages?.length]);
 
   const filtered = formattedConversations.filter((c) => {
     const q = search.toLowerCase();
@@ -274,7 +292,7 @@ export default function Messages() {
               )}
             </div>
 
-            <div className="msg-chat-body">
+            <div className="msg-chat-body" ref={chatBodyRef}>
               {active?.messages?.length ? (
                 active.messages.map((msg) => (
                   <MessageBubble key={msg.id} message={msg} />

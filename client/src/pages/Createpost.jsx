@@ -261,6 +261,17 @@ export default function CreatePost() {
     }
   };
 
+  const handleDelete = async () => {
+    if (!window.confirm("Are you sure you want to delete this listing? This cannot be undone.")) return;
+    try {
+      await api.delete(`/listings/${id}`);
+      navigate("/explore");
+    } catch (error) {
+      console.error("Error deleting listing:", error);
+      alert(error?.response?.data?.message || "Failed to delete listing.");
+    }
+  };
+
   return (
     <div className="cp-page">
       <Navbar active="post" />
@@ -505,20 +516,32 @@ export default function CreatePost() {
               </p>
             )}
 
-            <button
-              type="button"
-              className="cp-submit"
-              onClick={submit}
-              disabled={isSubmitting}
-            >
-              {isSubmitting
-                ? isEditMode
-                  ? "Updating..."
-                  : "Creating..."
-                : isEditMode
-                ? "Update Listing"
-                : "Create Listing"}
-            </button>
+            <div className={isEditMode ? "cp-action-row" : ""}>
+              <button
+                type="button"
+                className="cp-submit"
+                onClick={submit}
+                disabled={isSubmitting}
+              >
+                {isSubmitting
+                  ? isEditMode
+                    ? "Updating..."
+                    : "Creating..."
+                  : isEditMode
+                  ? "Update Listing"
+                  : "Create Listing"}
+              </button>
+              {isEditMode && (
+                <button
+                  type="button"
+                  className="cp-delete"
+                  onClick={handleDelete}
+                  disabled={isSubmitting}
+                >
+                  Delete Listing
+                </button>
+              )}
+            </div>
           </div>
 
           <div className="cp-preview-section">

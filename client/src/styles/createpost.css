@@ -9,7 +9,7 @@
 /* ── Use my location button ── */
 .cp-locate-btn {
   position: absolute;
-  top: 10px;
+  bottom: 10px;
   right: 10px;
   z-index: 1000;
   display: flex;
@@ -198,7 +198,7 @@
   align-items: center;
   padding: 0 14px;
   position: relative;
-  z-index: 30;
+  z-index: 10000;
 }
 
 .cp-cal-btn {
@@ -215,7 +215,7 @@
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  z-index: 9999;
+  z-index: 10001;
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
@@ -340,6 +340,17 @@
 }
 
 /* Submit */
+.cp-action-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cp-action-row .cp-submit {
+  margin-top: 0;
+  flex: 1;
+}
+
 .cp-submit {
   margin-top: 20px;
   width: 100%;
@@ -352,6 +363,28 @@
   font-weight: 600;
   cursor: pointer;
   transition: opacity 0.2s;
+}
+
+.cp-delete {
+  flex: 1;
+  padding: 16px;
+  background: #7f1d1d !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.cp-delete:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.cp-delete:not(:disabled):hover {
+  opacity: 0.88;
 }
 
 .cp-submit:disabled {

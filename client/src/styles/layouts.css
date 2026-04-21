@@ -306,12 +306,12 @@
  display: flex;
  align-items: center;
  gap: 12px;
- padding: 16px 28px;
+ padding: 16px 28px 16px 28px;
  background: #f0f2f5;
 }
 
 .msg-text-input {
- flex: 1;
+ flex: 0 1 85%;
  background: #d1d5db;
  border: none;
  border-radius: 999px;
@@ -334,6 +334,7 @@
  justify-content: center;
  flex-shrink: 0;
  transition: background 0.15s;
+ margin-left: 8px;
 }
 
 .msg-send-btn:hover {
