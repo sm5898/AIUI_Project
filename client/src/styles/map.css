@@ -376,6 +376,31 @@
  color: #111;
 }
 
+.map-availability-filter {
+ background: white;
+ border-radius: 999px;
+ padding: 8px 14px;
+ font-size: 14px;
+ font-weight: 500;
+ cursor: pointer;
+ color: #1f2937;
+ border: 1px solid #d1d5db;
+ box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+ transition: all 0.15s;
+ outline: none;
+ font-family: Inter, Arial, sans-serif;
+}
+
+.map-availability-filter:hover {
+ background: #f9fafb;
+ border-color: #9ca3af;
+}
+
+.map-availability-filter:focus {
+ border-color: #D4703A;
+ box-shadow: 0 1px 4px rgba(0,0,0,0.10), 0 0 0 3px rgba(212, 112, 58, 0.1);
+}
+
 /* ── View toggle ──────────────────────────────── */
 
 .view-toggle {

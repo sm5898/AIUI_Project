@@ -7,7 +7,7 @@ import { useSearch } from "../context/SearchContext"
 import "../styles/listview.css"
 
 export default function ListView() {
- const { filtered, query, setQuery, filter, setFilter } = useSearch()
+ const { filtered, query, setQuery, filter, setFilter, availabilityFilter, setAvailabilityFilter } = useSearch()
  const navigate = useNavigate()
  const [searchOpen, setSearchOpen] = useState(false)
  const [selectedListing, setSelectedListing] = useState(null)
@@ -63,10 +63,10 @@ export default function ListView() {
     </div>
 
     <div className="lv-filters">
-     {(filter !== "all" || query) && (
+     {(filter !== "all" || query || availabilityFilter !== "all") && (
       <button
        className="lv-clear-filters-btn"
-       onClick={() => { setFilter("all"); setQuery("") }}
+       onClick={() => { setFilter("all"); setQuery(""); setAvailabilityFilter("all"); }}
       >
        × Clear
       </button>
@@ -84,6 +84,18 @@ export default function ListView() {
      >
       Service
      </button>
+
+     <select
+      className="lv-availability-filter"
+      value={availabilityFilter}
+      onChange={(e) => setAvailabilityFilter(e.target.value)}
+     >
+      <option value="all">All Availability</option>
+      <option value="now">Available Now</option>
+      <option value="weekends">Weekends</option>
+      <option value="weekdays">Weekdays</option>
+      <option value="anytime">Anytime</option>
+     </select>
 
      {/* View toggle */}
      <div className="view-toggle">

@@ -24,6 +24,7 @@ export function SearchProvider({ children }) {
   const [listings, setListings] = useState([]);
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("all");
+  const [availabilityFilter, setAvailabilityFilter] = useState("all");
 
   const fetchListings = async () => {
     try {
@@ -78,18 +79,23 @@ export function SearchProvider({ children }) {
   const filtered = listings.filter((item) => {
     const itemType = item.type?.toLowerCase();
     const q = query.toLowerCase();
+    const itemAvailability = item.availability?.toLowerCase();
 
     const matchesFilter =
       filter === "all" ||
       itemType === filter ||
       (filter === "borrow" && itemType === "lend");
 
+    const matchesAvailability =
+      availabilityFilter === "all" ||
+      itemAvailability === availabilityFilter;
+
     const matchesQuery =
       !query ||
       item.title?.toLowerCase().includes(q) ||
       item.description?.toLowerCase().includes(q);
 
-    return matchesFilter && matchesQuery;
+    return matchesFilter && matchesQuery && matchesAvailability;
   });
 
   return (
@@ -101,6 +107,8 @@ export function SearchProvider({ children }) {
         setQuery,
         filter,
         setFilter,
+        availabilityFilter,
+        setAvailabilityFilter,
         fetchListings,
       }}
     >

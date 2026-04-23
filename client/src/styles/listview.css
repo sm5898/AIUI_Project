@@ -59,7 +59,11 @@
  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
 }
 
-.lv-filter-btn:nth-child(2) {
+.lv-filter-btn:first-of-type {
+ border-color: #D4703A;
+}
+
+.lv-filter-btn:last-of-type {
  border-color: #4A1A0A;
 }
 
@@ -93,6 +97,31 @@
 
 .lv-clear-filters-btn:hover {
  color: #111;
+}
+
+.lv-availability-filter {
+ background: white;
+ border-radius: 999px;
+ padding: 8px 14px;
+ font-size: 14px;
+ font-weight: 500;
+ cursor: pointer;
+ color: #1f2937;
+ border: 1px solid #d1d5db;
+ box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+ transition: all 0.15s;
+ outline: none;
+ font-family: Inter, Arial, sans-serif;
+}
+
+.lv-availability-filter:hover {
+ background: #f9fafb;
+ border-color: #9ca3af;
+}
+
+.lv-availability-filter:focus {
+ border-color: #D4703A;
+ box-shadow: 0 1px 4px rgba(0,0,0,0.10), 0 0 0 3px rgba(212, 112, 58, 0.1);
 }
 
 /* ── View toggle ──────────────────────────────── */
