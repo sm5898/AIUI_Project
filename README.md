@@ -187,10 +187,10 @@ GROQ_API_KEY="gsk_...yourkey..."
 
 | Variable | Required | Default | Description |
 |---|---|---|---|
-| `MONGODB_URI` | ✅ Yes | — | MongoDB Atlas (or local) connection string |
-| `JWT_SECRET` | ✅ Yes | — | Secret used to sign/verify auth tokens |
+| `MONGODB_URI` | Yes | — | MongoDB Atlas (or local) connection string |
+| `JWT_SECRET` | Yes | — | Secret used to sign/verify auth tokens |
 | `PORT` | No | `5001` | Port the Express server listens on |
-| `GROQ_API_KEY` | ✅ Yes | — | API key for Groq LLM (AI features) |
+| `GROQ_API_KEY` | Yes | — | API key for Groq LLM (AI features) |
 ---
 
 ## Quick Start
@@ -273,8 +273,8 @@ All routes are prefixed with `/api`. Protected routes require `Authorization: Be
 ### Profile — `/api/profile`
 | Method | Endpoint | Auth | Description |
 |---|---|---|---|
-| GET | `/me` | ✅ Yes | Get current user's profile + listing stats |
-| PUT | `/me` | ✅ Yes | Update bio, location, photo, name |
+| GET | `/me` | Yes | Get current user's profile + listing stats |
+| PUT | `/me` | Yes | Update bio, location, photo, name |
 
 ### Saved Listings — `/api/saved`
 | Method | Endpoint | Auth | Description |
