@@ -461,3 +461,48 @@
 .leaflet-control-attribution a {
  color: inherit !important;
 }
+
+/* ── Responsive ─────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .map-filters {
+    right: 16px;
+    gap: 6px;
+  }
+
+  .map-filter-btn {
+    padding: 7px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .map-search-overlay {
+    top: 12px;
+    left: 12px;
+  }
+
+  .map-filters {
+    top: 12px;
+    right: 12px;
+    gap: 5px;
+  }
+
+  .map-filter-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .map-tile-picker {
+    bottom: 80px;
+  }
+
+  .map-hover-card {
+    width: 200px;
+  }
+
+  .view-toggle-btn {
+    width: 32px;
+    height: 32px;
+  }
+}

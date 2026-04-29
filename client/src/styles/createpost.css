@@ -619,3 +619,40 @@
 .cp-hidden-input {
   display: none;
 }
+
+/* ── Responsive ─────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .cp-body {
+    padding: 16px 40px 60px;
+  }
+
+  .cp-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 28px 32px;
+  }
+
+  .cp-preview-section {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .cp-body {
+    padding: 16px 16px 60px;
+  }
+
+  .cp-layout {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  .cp-heading {
+    font-size: 24px;
+  }
+
+  .cp-map-wrap {
+    height: 220px;
+  }
+}

@@ -244,4 +244,32 @@
   margin: 0;
 }
 
+/* ── Responsive ─────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .su-root {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .su-right {
+    display: none;
+  }
+
+  .su-left {
+    padding: 36px 24px 48px;
+    min-height: 100vh;
+  }
+
+  .su-form-title {
+    font-size: 28px;
+  }
+
+  .su-name-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
 

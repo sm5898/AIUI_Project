@@ -729,3 +729,34 @@
 .pf-hidden-input {
   display: none;
 }
+
+/* ── Responsive ─────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .pf-page {
+    padding: 30px 24px 60px;
+  }
+
+  .pf-layout {
+    grid-template-columns: 240px 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .pf-page {
+    padding: 20px 16px 60px;
+  }
+
+  .pf-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .pf-page-title {
+    font-size: 26px;
+  }
+
+  .pf-sidebar-card,
+  .pf-edit-card {
+    padding: 24px 20px;
+  }
+}

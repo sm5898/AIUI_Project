@@ -201,3 +201,40 @@
 .ln-btn:hover { background: #1a3460; transform: translateY(-1px); }
 .ln-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
+/* ── Responsive ─────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .ln-root {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .ln-left {
+    padding: 36px 28px 32px;
+    min-height: auto;
+  }
+
+  .ln-left-content {
+    justify-content: flex-start;
+  }
+
+  .ln-title {
+    font-size: clamp(52px, 15vw, 80px);
+    margin-bottom: 24px;
+  }
+
+  .ln-right {
+    padding: 36px 24px 48px;
+  }
+
+  .ln-form {
+    max-width: 100%;
+  }
+
+  .ln-form-title {
+    font-size: 28px;
+  }
+}
+

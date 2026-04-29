@@ -108,3 +108,33 @@ button{
   margin-bottom: 16px;
   background: white;
 }
+
+/* ── Responsive grid ──────────────────────────── */
+
+@media (max-width: 1024px) {
+  .grid-list {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 30px 40px;
+    gap: 20px;
+  }
+
+  .page-content {
+    padding: 30px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-list {
+    grid-template-columns: 1fr;
+    padding: 20px 16px;
+    gap: 16px;
+  }
+
+  .page-content {
+    padding: 20px 16px;
+  }
+
+  .page-title {
+    font-size: 22px;
+  }
+}
