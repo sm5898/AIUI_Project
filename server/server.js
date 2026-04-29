@@ -15,12 +15,17 @@ import messageRoutes  from "./routes/messageRoutes.js";
 import aiRoutes       from "./routes/aiRoutes.js";
 
 // ── Startup guard: fail fast if critical env vars are missing ─────────────────
-const REQUIRED_ENV = ["MONGODB_URI", "JWT_SECRET", "GROQ_API_KEY"];
+// MONGODB_URI and JWT_SECRET are required — the server cannot function without them.
+// GROQ_API_KEY is optional; AI endpoints will fail gracefully if absent.
+const REQUIRED_ENV = ["MONGODB_URI", "JWT_SECRET"];
 const missing = REQUIRED_ENV.filter((k) => !process.env[k]);
 if (missing.length) {
   console.error(`[startup] Missing required env vars: ${missing.join(", ")}`);
   console.error("[startup] Create server/.env — see README for required keys.");
   process.exit(1);
+}
+if (!process.env.GROQ_API_KEY) {
+  console.warn("[startup] GROQ_API_KEY is not set — AI features will be unavailable.");
 }
 
 const app = express();

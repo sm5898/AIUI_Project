@@ -4,6 +4,7 @@ import ListingCard from "../components/Listingcard"
 import ListingModal from "../components/ListingModal"
 import Navbar from "../components/Navbar"
 import { useSearch } from "../context/SearchContext"
+import api from "../api/api"
 import "../styles/listview.css"
 
 export default function ListView() {
@@ -19,12 +20,11 @@ export default function ListView() {
     if (!aiQuery.trim()) return;
     setAiLoading(true);
     try {
-        const res = await fetch('http://localhost:5001/api/ai/smart-search', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ query: aiQuery, listings: filtered }),
+        const res = await api.post('/ai/smart-search', {
+            query: aiQuery,
+            listings: filtered,
         });
-        const data = await res.json();
+        const data = res.data;
         if (data.ids && data.ids.length > 0) {
             setQuery(data.ids[0]);
         }
