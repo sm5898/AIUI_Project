@@ -34,6 +34,15 @@
   align-items: start;
 }
 
+@media (max-width: 600px) {
+  .pf-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+}
+
 /* ── Sidebar card ───────────────────────────────── */
 
 .pf-sidebar-card,
@@ -312,6 +321,14 @@
   display: flex;
   gap: 28px;
   align-items: stretch;
+}
+
+@media (max-width: 600px) {
+  .pf-panels-row {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
 }
 
 .pf-section--half {

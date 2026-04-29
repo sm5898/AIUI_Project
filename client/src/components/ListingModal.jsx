@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import ReviewForm from "./ReviewForm.jsx";
+import ReviewList from "./ReviewList.jsx";
 import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 import { useSearch } from "../context/SearchContext";
@@ -13,6 +15,7 @@ export default function ListingModal({ listing, onClose }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const [isSaved, setIsSaved] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
+  const [showReview, setShowReview] = useState(false);
 
   const isBorrow = listing.type === "lend" || listing.type === "borrow";
   const accentColor = isBorrow ? BORROW_COLOR : SERVICE_COLOR;
@@ -157,92 +160,113 @@ export default function ListingModal({ listing, onClose }) {
           ✕
         </button>
 
-        <div className="lm-type-row">
-          <span className="lm-type-label">{typeLabel}</span>
-        </div>
-
-        <div className="lm-title-row">
-          <h2 className="lm-title">{listing.title}</h2>
-          {listing.distance && (
-            <span className="lm-dist">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              {listing.distance}
-            </span>
-          )}
-        </div>
-
-       {listing.image && (
-        <img
-          className="lm-img"
-          src={
-            listing.image.startsWith("http")
-              ? listing.image
-              : `http://localhost:5001${listing.image}`
-          }
-          alt={listing.title}
-          onError={(e) => {
-            e.target.style.display = "none";
-          }}
-          />
-        )}
-
-        {listing.description && (
-          <p className="lm-desc">{listing.description}</p>
-        )}
-
-        {listing.company && (
-          <p className="lm-meta">
-            <strong>Company:</strong> {listing.company}
-          </p>
-        )}
-
-        {listing.availability && (
-          <p className="lm-meta">
-            <strong>Availability:</strong> {listing.availability}
-          </p>
-        )}
-
-        <hr className="lm-divider" />
-
-        <div className="lm-footer">
-          <div className="lm-avatar" style={{ background: accentColor }}>
-            {postedBy?.[0]?.toUpperCase() || "?"}
+        {showReview ? (
+          <div style={{display:'flex',gap:24,alignItems:'flex-start'}}>
+            <div style={{flex:1,minWidth:0}}>
+              <ReviewForm
+                listingId={listing._id}
+                revieweeId={listing.createdById}
+                onSubmit={() => { setShowReview(false); setSaveMessage("Review submitted!"); }}
+                onCancel={() => setShowReview(false)}
+              />
+            </div>
+            <div style={{flex:1,minWidth:0}}>
+              <ReviewList listingId={listing._id} />
+            </div>
           </div>
-          <span className="lm-posted">
-            Posted by <strong>{postedBy}</strong>
-          </span>
-          <button className="lm-msg-btn" onClick={handleMessageClick}>
-            Message {postedBy}
-          </button>
-        </div>
+        ) : (
+          <>
+            <div className="lm-type-row">
+              <span className="lm-type-label">{typeLabel}</span>
+            </div>
 
-        <div className="lm-actions">
-          <button className="lm-msg-btn" onClick={handleSaveToggle}>
-            {isSaved ? "❤️ Unsave" : "🤍 Save"}
-          </button>
+            <div className="lm-title-row">
+              <h2 className="lm-title">{listing.title}</h2>
+              {listing.distance && (
+                <span className="lm-dist">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  {listing.distance}
+                </span>
+              )}
+            </div>
 
-          <button className="lm-msg-btn" onClick={() => navigate("/profile")}>
-            View Saved
-          </button>
+            {listing.image && (
+              <img
+                className="lm-img"
+                src={
+                  listing.image.startsWith("http")
+                    ? listing.image
+                    : `http://localhost:5001${listing.image}`
+                }
+                alt={listing.title}
+                onError={(e) => {
+                  e.target.style.display = "none";
+                }}
+              />
+            )}
 
-          {isOwner && (
-            <>
-              <button className="lm-msg-btn" onClick={handleEdit}>
-                ✏️ Edit
+            {listing.description && (
+              <p className="lm-desc">{listing.description}</p>
+            )}
+
+            {listing.company && (
+              <p className="lm-meta">
+                <strong>Company:</strong> {listing.company}
+              </p>
+            )}
+
+            {listing.availability && (
+              <p className="lm-meta">
+                <strong>Availability:</strong> {listing.availability}
+              </p>
+            )}
+
+            <hr className="lm-divider" />
+
+            <div className="lm-footer">
+              <div className="lm-avatar" style={{ background: accentColor }}>
+                {postedBy?.[0]?.toUpperCase() || "?"}
+              </div>
+              <span className="lm-posted">
+                Posted by <strong>{postedBy}</strong>
+              </span>
+              <button className="lm-msg-btn" onClick={handleMessageClick}>
+                Message {postedBy}
+              </button>
+            </div>
+
+            <div className="lm-actions">
+              <button className="lm-msg-btn" onClick={handleSaveToggle}>
+                {isSaved ? "❤️ Unsave" : "🤍 Save"}
               </button>
 
-              <button className="lm-msg-btn" onClick={handleDelete}>
-                🗑 Delete
-              </button>
-            </>
-          )}
-        </div>
+              <button className="lm-msg-btn" onClick={() => navigate("/profile")}>View Saved</button>
 
-        {saveMessage && (
-          <p className="lm-save-message">{saveMessage}</p>
+              {isOwner && (
+                <>
+                  <button className="lm-msg-btn" onClick={handleEdit}>
+                    ✏️ Edit
+                  </button>
+
+                  <button className="lm-msg-btn" onClick={handleDelete}>
+                    🗑 Delete
+                  </button>
+                </>
+              )}
+
+              {/* Show review button if not owner and user is logged in */}
+              {!isOwner && user?.id && (
+                <button className="lm-msg-btn" onClick={() => setShowReview(true)}>
+                  Leave a Review
+                </button>
+              )}
+            </div>
+
+            {saveMessage && <p className="lm-save-message">{saveMessage}</p>}
+          </>
         )}
       </div>
     </div>

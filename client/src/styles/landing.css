@@ -1,3 +1,22 @@
+/* Horizontal scroll for steps/cards on mobile */
+.steps-scroll-wrapper {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 12px;
+}
+
+@media (max-width: 700px) {
+  .steps-scroll-wrapper {
+    flex-wrap: nowrap;
+    scroll-snap-type: x mandatory;
+  }
+  .steps-scroll-wrapper > * {
+    min-width: 260px;
+    scroll-snap-align: start;
+  }
+}
 /* ── Login page — navy/white split ──────────────── */
 
 .ln-root {
@@ -51,12 +70,33 @@
 
 .ln-title {
   font-family: 'Libre Franklin', Arial, sans-serif;
-  font-size: clamp(72px, 9vw, 130px);
+  font-size: clamp(32px, 10vw, 96px);
   font-weight: 800;
   color: white;
   margin: 0 0 48px;
   line-height: 0.88;
   letter-spacing: -3px;
+  word-break: break-word;
+}
+
+@media (max-width: 600px) {
+  .ln-title {
+    font-size: clamp(24px, 14vw, 48px);
+  }
+}
+}
+
+@media (max-width: 900px) {
+  .ln-title {
+    font-size: 56px;
+  }
+}
+
+@media (max-width: 600px) {
+  .ln-title {
+    font-size: 32px;
+  }
+}
 }
 
 .ln-deco-pin {

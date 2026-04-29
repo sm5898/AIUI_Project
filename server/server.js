@@ -8,6 +8,7 @@ import profileRoutes from "./routes/profileRoutes.js";
 import savedRoutes from "./routes/savedRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import aiRoutes from './routes/aiRoutes.js'
+import reviewRoutes from './routes/reviewRoutes.js';
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use("/api/profile", profileRoutes);
 app.use("/api/saved", savedRoutes);
 app.use("/api/messages", messageRoutes);
 app.use('/api/ai', aiRoutes)
+app.use('/api/reviews', reviewRoutes);
 app.use("/uploads", express.static("uploads"));
 
 app.get("/", (req, res) => {

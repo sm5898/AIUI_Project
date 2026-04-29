@@ -198,7 +198,10 @@ export default function Messages() {
         <h1 className="msg-heading">Conversations</h1>
 
         <div className="msg-layout">
-          <div className="msg-sidebar">
+          <div
+            className="msg-sidebar"
+            style={{ display: (window.innerWidth <= 800 && active) ? 'none' : undefined }}
+          >
             <div className="msg-search-wrap">
               <svg
                 width="14"
@@ -239,7 +242,12 @@ export default function Messages() {
                   <div key={c.id}>
                     <div
                       className={`msg-convo-item${c.id === activeId ? " msg-convo-active" : ""}`}
-                      onClick={() => setActiveId(c.id)}
+                      onClick={() => {
+                        setActiveId(c.id);
+                        if (window.innerWidth <= 800) {
+                          window.scrollTo(0, 0);
+                        }
+                      }}
                     >
                       <div className="msg-avatar">{c.initials}</div>
                       <div className="msg-convo-text">
@@ -254,7 +262,10 @@ export default function Messages() {
             </div>
           </div>
 
-          <div className="msg-chat-panel">
+          <div
+            className={`msg-chat-panel${window.innerWidth <= 800 && active ? ' msg-chat-active' : ''}`}
+            style={{ display: (window.innerWidth <= 800 && !active) ? 'none' : undefined }}
+          >
             {!active ? (
               <div className="msg-no-convo-panel">
                 <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#C4CADA" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
@@ -266,6 +277,15 @@ export default function Messages() {
             ) : (
               <>
             <div className="msg-chat-header">
+              {window.innerWidth <= 800 && (
+                <button
+                  style={{ marginRight: 16, background: 'none', border: 'none', color: 'white', fontSize: 22, cursor: 'pointer' }}
+                  onClick={() => setActiveId(null)}
+                  title="Back to conversations"
+                >
+                  &#8592;
+                </button>
+              )}
               <div className="msg-header-avatar">{active?.initials}</div>
               <div className="msg-header-info">
                 <span className="msg-header-name">{active?.name}</span>

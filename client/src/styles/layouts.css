@@ -27,13 +27,44 @@
 /* ── Two-column layout ───────────────────────── */
 
 .msg-layout {
- display: grid;
- grid-template-columns: 340px 1fr;
- flex: 1;
- border-radius: 16px;
- overflow: hidden;
- box-shadow: 0 4px 24px rgba(0,0,0,0.08);
- min-height: 0;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  flex: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  min-height: 0;
+}
+
+@media (max-width: 800px) {
+  .msg-layout {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+    box-shadow: none;
+    min-height: 0;
+    height: 100%;
+  }
+  .msg-sidebar {
+    width: 100%;
+    max-width: 100vw;
+    min-height: 0;
+    flex: 1 0 auto;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .msg-chat-panel {
+    width: 100vw;
+    min-height: 0;
+    flex: 1 0 auto;
+    border-radius: 0;
+    box-shadow: none;
+    display: none;
+  }
+  .msg-chat-panel.msg-chat-active {
+    display: flex;
+  }
+}
 }
 
 /* ── Left sidebar ────────────────────────────── */

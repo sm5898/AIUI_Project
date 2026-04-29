@@ -85,6 +85,23 @@
   align-items: start;
 }
 
+@media (max-width: 900px) {
+  .cp-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 24px 8px;
+    grid-auto-flow: row;
+  }
+  .cp-preview-section {
+    order: -1;
+    margin-bottom: 0;
+  }
+  .cp-form {
+    order: 1;
+  }
+}
+}
+
 /* ── FORM COLUMN ── */
 .cp-form {
   display: flex;
