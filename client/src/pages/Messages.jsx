@@ -14,6 +14,7 @@ export default function Messages() {
   const [input, setInput] = useState("");
   const [conversations, setConversations] = useState([]);
   const [error, setError] = useState("");
+  const [mobileShowChat, setMobileShowChat] = useState(false);
 
   const chatBodyRef = useRef(null);
 
@@ -197,7 +198,7 @@ export default function Messages() {
       <div className="msg-outer">
         <h1 className="msg-heading">Conversations</h1>
 
-        <div className="msg-layout">
+        <div className={`msg-layout${mobileShowChat ? " msg-layout--chat-open" : ""}`}>
           <div className="msg-sidebar">
             <div className="msg-search-wrap">
               <svg
@@ -239,7 +240,7 @@ export default function Messages() {
                   <div key={c.id}>
                     <div
                       className={`msg-convo-item${c.id === activeId ? " msg-convo-active" : ""}`}
-                      onClick={() => setActiveId(c.id)}
+                      onClick={() => { setActiveId(c.id); setMobileShowChat(true); }}
                     >
                       <div className="msg-avatar">{c.initials}</div>
                       <div className="msg-convo-text">
@@ -266,6 +267,15 @@ export default function Messages() {
             ) : (
               <>
             <div className="msg-chat-header">
+              <button
+                className="msg-back-btn"
+                onClick={() => setMobileShowChat(false)}
+                aria-label="Back to conversations"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
               <div className="msg-header-avatar">{active?.initials}</div>
               <div className="msg-header-info">
                 <span className="msg-header-name">{active?.name}</span>

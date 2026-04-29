@@ -378,3 +378,80 @@
   color: #b91c1c;
   font-size: 14px;
 }
+
+/* ── Back button (mobile only) ───────────────── */
+
+.msg-back-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 4px;
+}
+
+/* ── Responsive ─────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .msg-outer {
+    padding: 20px 24px;
+  }
+
+  .msg-layout {
+    grid-template-columns: 280px 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .msg-outer {
+    padding: 16px 12px;
+  }
+
+  .msg-heading {
+    font-size: 24px;
+    margin-bottom: 14px;
+  }
+
+  /* Stack sidebar and chat — show only one at a time */
+  .msg-layout {
+    grid-template-columns: 1fr;
+    position: relative;
+  }
+
+  /* Sidebar visible by default, chat hidden */
+  .msg-sidebar {
+    border-radius: 12px;
+    max-height: none;
+  }
+
+  .msg-chat-panel {
+    display: none;
+    border-radius: 12px;
+  }
+
+  /* When a chat is open: hide sidebar, show chat */
+  .msg-layout--chat-open .msg-sidebar {
+    display: none;
+  }
+
+  .msg-layout--chat-open .msg-chat-panel {
+    display: flex;
+    height: calc(100vh - 160px);
+  }
+
+  /* Show the back button */
+  .msg-back-btn {
+    display: flex;
+  }
+
+  .msg-text-input {
+    flex: 0 1 75%;
+  }
+
+  .msg-input-bar {
+    padding: 12px 16px;
+  }
+}

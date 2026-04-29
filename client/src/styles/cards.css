@@ -70,3 +70,15 @@
   color: #888;
   margin: 0;
 }
+
+/* ── Responsive ─────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .card {
+    padding: 18px 16px;
+  }
+
+  .card-title {
+    font-size: 18px;
+  }
+}

@@ -6,6 +6,7 @@ export default function Navbar({ active, locked }) {
   const navigate = useNavigate();
   const [toast, setToast] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const dropdownRef = useRef();
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -53,7 +54,8 @@ export default function Navbar({ active, locked }) {
         <div />
       </div>
 
-      <div className="nav-pill">
+      {/* Desktop nav pill */}
+      <div className="nav-pill nav-pill--desktop">
         <span
           className={active === "explore" ? "active" : ""}
           onClick={() => go("/explore")}
@@ -75,6 +77,15 @@ export default function Navbar({ active, locked }) {
       </div>
 
       <div className="nb-right">
+        {/* Hamburger — mobile only */}
+        <button
+          className="nb-hamburger"
+          onClick={() => setMenuOpen(o => !o)}
+          aria-label="Menu"
+        >
+          <span /><span /><span />
+        </button>
+
         {user ? (
           <div className="nb-avatar-wrap" ref={dropdownRef}>
             <div
@@ -107,6 +118,15 @@ export default function Navbar({ active, locked }) {
           </>
         )}
       </div>
+
+      {/* Mobile dropdown menu */}
+      {menuOpen && (
+        <div className="nb-mobile-menu">
+          <span onClick={() => { go("/explore"); setMenuOpen(false); }} className={active === "explore" ? "active" : ""}>Explore</span>
+          <span onClick={() => { go("/messages"); setMenuOpen(false); }} className={active === "messages" ? "active" : ""}>Messages</span>
+          <span onClick={() => { go("/create"); setMenuOpen(false); }} className={active === "post" ? "active" : ""}>Post</span>
+        </div>
+      )}
 
       {toast && (
         <div className="nav-toast">Log in or create an account to explore</div>

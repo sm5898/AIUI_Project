@@ -296,3 +296,90 @@
   background: #c05e2a !important;
   transform: translateY(-2px);
 }
+
+/* ── Responsive ─────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .wl-hero {
+    padding: 0 60px;
+  }
+
+  .wl-hero-scroll {
+    left: 60px;
+  }
+
+  .wl-steps-section {
+    padding: 60px 40px;
+  }
+
+  .wl-step-card {
+    padding: 40px 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wl-hero {
+    padding: 0 24px;
+    justify-content: center;
+    text-align: left;
+  }
+
+  .wl-hero-title {
+    font-size: clamp(56px, 18vw, 100px);
+    letter-spacing: -2px;
+  }
+
+  .wl-eyebrow {
+    font-size: 12px;
+  }
+
+  .wl-hero-scroll {
+    left: 24px;
+    bottom: 32px;
+  }
+
+  .wl-login-skip {
+    top: 16px;
+    right: 16px;
+    padding: 8px 14px 8px 10px;
+    font-size: 12px;
+  }
+
+  .wl-steps-section {
+    padding: 40px 16px;
+  }
+
+  .wl-steps-grid {
+    grid-template-columns: 1fr;
+    border-radius: 16px;
+  }
+
+  .wl-step-card {
+    padding: 32px 28px;
+    border-right: none;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .wl-step-card:last-child {
+    border-bottom: none;
+  }
+
+  .wl-cta-section {
+    padding: 40px 24px 64px;
+    min-height: auto;
+  }
+
+  .wl-cta-heading {
+    font-size: clamp(28px, 8vw, 48px);
+    text-align: center;
+  }
+
+  .wl-cta-text-btn {
+    padding: 14px 36px;
+    font-size: 15px;
+  }
+
+  .wl-bg-pins .wl-bg-pin:nth-child(n+7) {
+    display: none;
+  }
+}

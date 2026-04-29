@@ -205,3 +205,48 @@
   font-size: 14px;
   color: #0B1F44;
 }
+
+/* ── Responsive ─────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .lm-backdrop {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .lm-card {
+    max-width: 100%;
+    border-radius: 20px 20px 0 0;
+    max-height: 88vh;
+    padding: 20px 18px 28px;
+    animation: lm-slide-up-mobile 0.25s ease;
+  }
+
+  @keyframes lm-slide-up-mobile {
+    from { transform: translateY(40px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+
+  .lm-title {
+    font-size: 20px;
+  }
+
+  .lm-footer {
+    flex-wrap: wrap;
+  }
+
+  .lm-msg-btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .lm-actions {
+    flex-direction: column;
+  }
+
+  .lm-actions > * {
+    width: 100%;
+    text-align: center;
+  }
+}

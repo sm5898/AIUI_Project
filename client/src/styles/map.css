@@ -305,12 +305,14 @@
 
 .map-search-input {
  width: 240px;
+ max-width: calc(100vw - 160px);
  padding: 12px 18px;
  border-radius: 999px;
  border: none;
  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
  font-size: 14px;
  outline: none;
+ box-sizing: border-box;
 }
 
 /* ── Filter pills (top-right) ─────────────────── */
@@ -460,4 +462,57 @@
 
 .leaflet-control-attribution a {
  color: inherit !important;
+}
+
+/* ── Responsive ─────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .map-filters {
+    right: 16px;
+    gap: 6px;
+  }
+
+  .map-filter-btn {
+    padding: 7px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .map-search-overlay {
+    top: 12px;
+    left: 12px;
+    max-width: calc(100vw - 24px);
+  }
+
+  .map-search-input {
+    width: 140px;
+    max-width: calc(100vw - 120px);
+    font-size: 13px;
+    padding: 9px 14px;
+  }
+
+  .map-filters {
+    top: 12px;
+    right: 12px;
+    gap: 5px;
+  }
+
+  .map-filter-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .map-tile-picker {
+    bottom: 80px;
+  }
+
+  .map-hover-card {
+    width: 200px;
+  }
+
+  .view-toggle-btn {
+    width: 32px;
+    height: 32px;
+  }
 }

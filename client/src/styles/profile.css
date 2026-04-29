@@ -729,3 +729,153 @@
 .pf-hidden-input {
   display: none;
 }
+
+/* ── Responsive ─────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .pf-page {
+    padding: 30px 24px 60px;
+  }
+
+  .pf-layout {
+    grid-template-columns: 240px 1fr;
+  }
+
+  .pf-panels-row {
+    flex-direction: column;
+  }
+
+  .pf-listings-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  .pf-saved-drawer {
+    width: min(600px, 100%);
+    max-height: 85vh;
+  }
+
+  .pf-saved-drawer .grid-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .pf-page {
+    padding: 16px 16px 60px;
+  }
+
+  .pf-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .pf-page-title {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .pf-sidebar-card,
+  .pf-edit-card {
+    padding: 20px 16px;
+  }
+
+  .pf-panels-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .pf-section {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  .pf-section-title {
+    font-size: 17px;
+  }
+
+  .pf-listings-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .pf-listing-img {
+    height: 110px;
+  }
+
+  .pf-avatar-initials,
+  .pf-avatar-img {
+    width: 80px;
+    height: 80px;
+    font-size: 22px;
+  }
+
+  .pf-name {
+    font-size: 18px;
+  }
+
+  .pf-main {
+    gap: 16px;
+  }
+
+  .pf-edit-actions {
+    flex-direction: column;
+  }
+
+  /* ── Saved / My Listings modal overlay ── */
+
+  .pf-saved-overlay {
+    padding: 0;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  .pf-saved-drawer {
+    width: 100%;
+    max-height: 92vh;
+    border-radius: 20px 20px 0 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: pf-modal-slide-up 0.25s ease;
+  }
+
+  @keyframes pf-modal-slide-up {
+    from { transform: translateY(40px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+
+  .pf-saved-drawer-header {
+    padding: 16px 16px 0;
+    flex-shrink: 0;
+  }
+
+  .pf-saved-drawer-title {
+    font-size: 18px;
+  }
+
+  .pf-saved-drawer-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 16px 0;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .pf-saved-drawer-toolbar .lv-search-input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .pf-saved-drawer-toolbar .lv-filters {
+    flex-wrap: wrap;
+  }
+
+  .pf-saved-drawer .grid-list {
+    grid-template-columns: 1fr;
+    padding: 14px 16px 28px;
+    gap: 12px;
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

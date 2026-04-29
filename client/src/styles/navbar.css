@@ -161,3 +161,77 @@
   color: inherit;
   font-family: inherit;
 }
+
+/* ── Hamburger (hidden on desktop) ──────────────── */
+
+.nb-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  width: 36px;
+  height: 36px;
+}
+
+.nb-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #0B1F44;
+  border-radius: 2px;
+}
+
+/* ── Mobile dropdown menu ────────────────────────── */
+
+.nb-mobile-menu {
+  display: none;
+}
+
+/* ── Responsive breakpoints ──────────────────────── */
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 16px 20px;
+    flex-wrap: wrap;
+  }
+
+  .nav-pill--desktop {
+    display: none;
+  }
+
+  .nb-hamburger {
+    display: flex;
+  }
+
+  .nb-mobile-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: #0B1F44;
+    border-radius: 14px;
+    padding: 10px 0;
+    margin-top: 8px;
+  }
+
+  .nb-mobile-menu span {
+    padding: 12px 24px;
+    color: rgba(255,255,255,0.7);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.15s, background 0.15s;
+    border-radius: 8px;
+    margin: 0 8px;
+  }
+
+  .nb-mobile-menu span:hover,
+  .nb-mobile-menu span.active {
+    color: white;
+    font-weight: 700;
+    background: rgba(255,255,255,0.08);
+  }
+}
